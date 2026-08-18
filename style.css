@@ -1,0 +1,321 @@
+/* ============================== */
+/* PAGE */
+/* ============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ============================== */
+/* CONSOLE */
+/* ============================== */
+
+#console {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+#output {
+    height: 400px;
+    overflow-y: auto;
+    background: #080808;
+    border: 2px solid #333;
+    padding: 15px;
+    font-family: monospace;
+}
+
+#commandInput {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #181818;
+    color: white;
+    border: 2px solid #444;
+    outline: none;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+#commandInput:focus {
+    border-color: #888;
+}
+
+
+/* ============================== */
+/* TEXT */
+/* ============================== */
+
+#output p {
+    margin: 4px 0;
+}
+
+.success {
+    color: #7cff7c;
+}
+
+.error {
+    color: #ff6666;
+}
+
+.duck {
+    color: #ffff66;
+}
+
+
+/* ============================== */
+/* DUCK FIELD */
+/* ============================== */
+
+#field {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin-top: 20px;
+
+    display: none;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            #87ceeb 0%,
+            #bde9ff 65%,
+            #77c957 65%,
+            #4e9d38 100%
+        );
+
+    border: 4px solid #222;
+}
+
+
+/* ============================== */
+/* DUCK */
+/* ============================== */
+
+.field-duck {
+    position: absolute;
+
+    width: 70px;
+    height: 70px;
+
+    transform: translate(-50%, -50%);
+
+    transition:
+        left 0.05s linear,
+        top 0.05s linear;
+}
+
+
+/* ============================== */
+/* DUCK BODY */
+/* ============================== */
+
+.duck-body {
+    position: absolute;
+
+    width: 48px;
+    height: 38px;
+
+    left: 11px;
+    top: 27px;
+
+    border-radius: 50%;
+
+    background: #ffe45c;
+
+    z-index: 1;
+}
+
+
+/* ============================== */
+/* DUCK HEAD */
+/* ============================== */
+
+.duck-head {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    /*
+     * IMPORTANT:
+     * The head is ABOVE the body.
+     */
+
+    left: 25px;
+    top: 4px;
+
+    border-radius: 50%;
+
+    background: #ffe45c;
+
+    z-index: 5;
+}
+
+
+/* ============================== */
+/* DUCK EYE */
+/* ============================== */
+
+.duck-eye {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    /*
+     * Eye is positioned ON the head.
+     */
+
+    left: 23px;
+    top: 9px;
+
+    border-radius: 50%;
+
+    background: #111;
+
+    z-index: 7;
+}
+
+
+/* ============================== */
+/* DUCK BEAK */
+/* ============================== */
+
+.duck-beak {
+    position: absolute;
+
+    /*
+     * THIS IS THE IMPORTANT PART.
+     *
+     * The beak is positioned relative
+     * to .duck-head.
+     *
+     * It is beside the HEAD,
+     * NOT beside/below the BODY.
+     */
+
+    width: 18px;
+    height: 11px;
+
+    left: 30px;
+    top: 19px;
+
+    background: #f39c12;
+
+    border-radius:
+        50% 70% 70% 50%;
+
+    z-index: 8;
+
+    /*
+     * Make it point outward from
+     * the right side of the head.
+     */
+
+    transform:
+        rotate(5deg);
+}
+
+
+/* ============================== */
+/* PEKIN ADULT */
+/* ============================== */
+
+.pekin-adult .duck-body {
+    background: white;
+}
+
+.pekin-adult .duck-head {
+    background: white;
+}
+
+
+/* ============================== */
+/* PEKIN DUCKLING */
+/* ============================== */
+
+.pekin-duckling .duck-body {
+    background: #ffd84d;
+}
+
+.pekin-duckling .duck-head {
+    background: #ffd84d;
+}
+
+
+/* ============================== */
+/* MALLARD */
+/* ============================== */
+
+.mallard .duck-body {
+    background: #8f9b45;
+}
+
+.mallard .duck-head {
+    background: #28734b;
+}
+
+
+/* ============================== */
+/* FROZEN DUCK */
+/* ============================== */
+
+.field-duck.frozen {
+    filter:
+        brightness(1.15)
+        saturate(0.5);
+}
+
+.field-duck.frozen::after {
+    content: "❄️";
+
+    position: absolute;
+
+    left: 4px;
+    top: -15px;
+
+    font-size: 20px;
+
+    z-index: 20;
+}
+
+
+/* ============================== */
+/* FIELD LABEL */
+/* ============================== */
+
+.field-duck::before {
+    content: attr(title);
+
+    position: absolute;
+
+    left: 50%;
+    top: 73px;
+
+    transform: translateX(-50%);
+
+    white-space: nowrap;
+
+    padding: 2px 5px;
+
+    background: rgba(0, 0, 0, 0.65);
+
+    color: white;
+
+    font-size: 10px;
+
+    border-radius: 3px;
+
+    z-index: 20;
+}
