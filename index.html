@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Duckey Console</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <main id="console">
+
+        <header id="header">
+            🦆 Duckey Console v1.0
+        </header>
+
+        <section id="field" aria-label="Duck Field">
+            <!-- Ducks, weather effects, puddles and snowmen are created by JavaScript. -->
+        </section>
+
+        <section id="output" aria-live="polite">
+            <!-- Console messages appear here. -->
+        </section>
+
+        <input
+            id="commandInput"
+            type="text"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder="Type a command... (try /help)"
+            aria-label="Duckey Console command"
+        >
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
