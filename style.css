@@ -1,0 +1,637 @@
+/* ========================================= */
+/* DUCKEY CONSOLE                            */
+/* ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: #111;
+    color: #eee;
+    font-family: "Courier New", monospace;
+    overflow: hidden;
+}
+
+
+/* ========================================= */
+/* MAIN CONSOLE                              */
+/* ========================================= */
+
+#console {
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #111;
+}
+
+
+/* ========================================= */
+/* HEADER                                    */
+/* ========================================= */
+
+#header {
+    padding: 12px 16px;
+
+    background: #1b1b1b;
+
+    border-bottom: 2px solid #333;
+
+    color: #fff;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ========================================= */
+/* OUTPUT                                    */
+/* ========================================= */
+
+#output {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 14px 18px;
+
+    background: #101010;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+}
+
+
+/* ========================================= */
+/* OUTPUT TEXT                               */
+/* ========================================= */
+
+#output p {
+    margin: 4px 0;
+}
+
+#output .success {
+    color: #7cff7c;
+}
+
+#output .error {
+    color: #ff6969;
+}
+
+#output .duck {
+    color: #ffd84d;
+}
+
+
+/* ========================================= */
+/* INPUT                                     */
+/* ========================================= */
+
+#commandInput {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: none;
+    border-top: 2px solid #333;
+
+    outline: none;
+
+    background: #181818;
+
+    color: #fff;
+
+    font-family: "Courier New", monospace;
+    font-size: 16px;
+}
+
+#commandInput::placeholder {
+    color: #777;
+}
+
+#commandInput:focus {
+    background: #202020;
+}
+
+
+/* ========================================= */
+/* FIELD                                     */
+/* ========================================= */
+
+#field {
+    position: relative;
+
+    width: 100%;
+    height: 55vh;
+
+    min-height: 260px;
+
+    overflow: hidden;
+
+    display: none;
+
+    border-top: 2px solid #333;
+
+    background: #8fdcff;
+
+    transition:
+        background 0.5s ease,
+        filter 0.5s ease;
+}
+
+
+/* ========================================= */
+/* AREA: FIELD                               */
+/* ========================================= */
+
+#field.area-field {
+    background:
+        linear-gradient(
+            #82d9ff 0%,
+            #b9edff 65%,
+            #78c850 65%,
+            #5eae3c 100%
+        );
+}
+
+
+/* ========================================= */
+/* AREA: FOREST                              */
+/* ========================================= */
+
+#field.area-forest {
+    background:
+        linear-gradient(
+            #6eb6d6 0%,
+            #9bd6e8 35%,
+            #47763d 35%,
+            #294f29 100%
+        );
+}
+
+
+/* ========================================= */
+/* AREA: LAKE                                */
+/* ========================================= */
+
+#field.area-lake {
+    background:
+        linear-gradient(
+            #8edcff 0%,
+            #bcefff 25%,
+            #248ac0 25%,
+            #11638e 100%
+        );
+}
+
+
+/* ========================================= */
+/* AREA: FARM                                */
+/* ========================================= */
+
+#field.area-farm {
+    background:
+        linear-gradient(
+            #8edcff 0%,
+            #c9f0ff 50%,
+            #a87943 50%,
+            #7c542c 100%
+        );
+}
+
+
+/* ========================================= */
+/* AREA: VILLAGE                             */
+/* ========================================= */
+
+#field.area-village {
+    background:
+        linear-gradient(
+            #83d8ff 0%,
+            #c1efff 50%,
+            #c99c67 50%,
+            #a97848 100%
+        );
+}
+
+
+/* ========================================= */
+/* AREA: MARKET                              */
+/* ========================================= */
+
+#field.area-market {
+    background:
+        linear-gradient(
+            #8edcff 0%,
+            #c9f1ff 55%,
+            #777 55%,
+            #4e4e4e 100%
+        );
+}
+
+
+/* ========================================= */
+/* DUCK                                      */
+/* ========================================= */
+
+.field-duck {
+    position: absolute;
+
+    width: 52px;
+    height: 52px;
+
+    transform:
+        translate(-50%, -50%);
+
+    pointer-events: auto;
+
+    z-index: 20;
+
+    transition:
+        filter 0.15s ease;
+}
+
+
+/* ========================================= */
+/* DUCK BODY                                 */
+/* ========================================= */
+
+.duck-body {
+    position: absolute;
+
+    width: 34px;
+    height: 27px;
+
+    left: 8px;
+    top: 21px;
+
+    border-radius: 55% 55% 48% 48%;
+
+    background: #ffe34d;
+
+    border: 2px solid #c9a900;
+}
+
+
+/* ========================================= */
+/* DUCK HEAD                                 */
+/* ========================================= */
+
+.duck-head {
+    position: absolute;
+
+    width: 27px;
+    height: 27px;
+
+    left: 18px;
+    top: 5px;
+
+    border-radius: 50%;
+
+    background: #ffe34d;
+
+    border: 2px solid #c9a900;
+
+    z-index: 2;
+}
+
+
+/* ========================================= */
+/* DUCK EYE                                  */
+/* ========================================= */
+
+.duck-eye {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    right: 6px;
+    top: 7px;
+
+    border-radius: 50%;
+
+    background: #111;
+}
+
+
+/* ========================================= */
+/* DUCK BEAK                                 */
+/* ========================================= */
+
+.duck-beak {
+    position: absolute;
+
+    width: 11px;
+    height: 7px;
+
+    right: -8px;
+    top: 12px;
+
+    border-radius: 50%;
+
+    background: #f59b23;
+
+    border: 1px solid #c66f00;
+}
+
+
+/* ========================================= */
+/* PEKIN ADULT                              */
+/* ========================================= */
+
+.field-duck.pekin-adult .duck-body,
+.field-duck.pekin-adult .duck-head {
+    background: #fff;
+    border-color: #bbb;
+}
+
+
+/* ========================================= */
+/* PEKIN DUCKLING                            */
+/* ========================================= */
+
+.field-duck.pekin-duckling .duck-body,
+.field-duck.pekin-duckling .duck-head {
+    background: #fff27a;
+    border-color: #d4bd28;
+}
+
+
+/* ========================================= */
+/* MALLARD                                   */
+/* ========================================= */
+
+.field-duck.mallard .duck-body {
+    background: #8b6a3e;
+    border-color: #5e4528;
+}
+
+.field-duck.mallard .duck-head {
+    background: #287447;
+    border-color: #19502f;
+}
+
+
+/* ========================================= */
+/* FROZEN DUCK                               */
+/* ========================================= */
+
+.field-duck.frozen {
+    filter:
+        saturate(0.45)
+        brightness(1.15)
+        drop-shadow(0 0 5px #b9efff);
+}
+
+.field-duck.frozen::after {
+    content: "❄️";
+
+    position: absolute;
+
+    left: 0;
+    top: -16px;
+
+    font-size: 17px;
+
+    z-index: 30;
+}
+
+
+/* ========================================= */
+/* WEATHER EFFECT BASE                       */
+/* ========================================= */
+
+.weather-effect {
+    position: absolute;
+
+    pointer-events: none;
+
+    z-index: 50;
+}
+
+
+/* ========================================= */
+/* RAIN                                      */
+/* ========================================= */
+
+.rain-drop {
+    width: 2px;
+    height: 18px;
+
+    background: #bcecff;
+
+    border-radius: 2px;
+
+    animation: rainFall 1s linear forwards;
+}
+
+@keyframes rainFall {
+
+    from {
+        transform: translateY(-20px);
+        opacity: 0.9;
+    }
+
+    to {
+        transform: translateY(60vh);
+        opacity: 0;
+    }
+}
+
+
+/* ========================================= */
+/* PUDDLES                                   */
+/* ========================================= */
+
+.weather-puddle {
+    position: absolute;
+
+    width: 45px;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background: rgba(40, 140, 190, 0.55);
+
+    border: 1px solid rgba(20, 90, 140, 0.7);
+
+    z-index: 10;
+
+    pointer-events: none;
+
+    animation: puddleAppear 0.4s ease-out;
+}
+
+@keyframes puddleAppear {
+
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* ========================================= */
+/* SNOW                                     */
+/* ========================================= */
+
+.snowflake {
+    position: absolute;
+
+    color: #fff;
+
+    font-size: 18px;
+
+    text-shadow:
+        0 0 4px #9bdcff;
+
+    animation: snowFall 3s linear forwards;
+}
+
+@keyframes snowFall {
+
+    from {
+        transform:
+            translateY(-25px)
+            rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    to {
+        transform:
+            translateY(60vh)
+            rotate(180deg);
+        opacity: 0.8;
+    }
+}
+
+
+/* ========================================= */
+/* SNOWMAN                                   */
+/* ========================================= */
+
+.weather-snowman {
+    position: absolute;
+
+    font-size: 34px;
+
+    z-index: 15;
+
+    pointer-events: none;
+
+    animation:
+        snowmanAppear 0.6s ease-out;
+}
+
+@keyframes snowmanAppear {
+
+    from {
+        transform: scale(0);
+
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+
+        opacity: 1;
+    }
+}
+
+
+/* ========================================= */
+/* RAIN WEATHER FILTER                       */
+/* ========================================= */
+
+#field.area-field.weather-rain,
+#field.area-forest.weather-rain,
+#field.area-lake.weather-rain,
+#field.area-farm.weather-rain,
+#field.area-village.weather-rain,
+#field.area-market.weather-rain {
+    filter: brightness(0.9);
+}
+
+
+/* ========================================= */
+/* SNOW WEATHER                              */
+/* ========================================= */
+
+#field.weather-snow {
+    filter: brightness(1.05);
+}
+
+
+/* ========================================= */
+/* SCROLLBAR                                 */
+/* ========================================= */
+
+#output::-webkit-scrollbar {
+    width: 10px;
+}
+
+#output::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+#output::-webkit-scrollbar-thumb {
+    background: #444;
+
+    border-radius: 5px;
+}
+
+#output::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+
+/* ========================================= */
+/* MOBILE                                    */
+/* ========================================= */
+
+@media (max-width: 700px) {
+
+    #header {
+        font-size: 15px;
+    }
+
+    #output {
+        font-size: 13px;
+    }
+
+    #commandInput {
+        font-size: 14px;
+    }
+
+    #field {
+        height: 45vh;
+    }
+
+    .field-duck {
+        transform:
+            translate(-50%, -50%)
+            scale(0.85);
+    }
+}
