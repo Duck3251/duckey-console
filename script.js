@@ -3219,3 +3219,35 @@ print(
 print(
     "⚔️ Boss battles are available with /boss 1!"
 );
+
+// ==========================================
+// 🦆 MODE TAB SWITCHING
+// ==========================================
+
+const basicTab = document.getElementById("basicTab");
+const advancedTabButton = document.getElementById("advancedTabButton");
+
+const basicMode = document.getElementById("basicMode");
+const advancedTab = document.getElementById("advancedTab");
+
+function showBasicMode() {
+    basicTab.classList.add("active");
+    advancedTabButton.classList.remove("active");
+
+    basicMode.style.display = "block";
+    advancedTab.style.display = "none";
+}
+
+function showAdvancedMode() {
+    basicTab.classList.remove("active");
+    advancedTabButton.classList.add("active");
+
+    basicMode.style.display = "none";
+    advancedTab.style.display = "block";
+}
+
+basicTab.addEventListener("click", showBasicMode);
+advancedTabButton.addEventListener("click", showAdvancedMode);
+
+// Start in BASIC mode
+showBasicMode();
