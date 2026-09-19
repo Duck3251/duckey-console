@@ -1,569 +1,369 @@
-/* ========================================= */
-/* DUCKEY CONSOLE                            */
-/* ========================================= */
-
 * {
-    box-sizing: border-box;
-}
+  box-sizing: border-box;
+  }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
 }
 
 body {
-    background: #111;
-    color: #eee;
-    font-family: "Courier New", monospace;
-    overflow: hidden;
+background: #111;
+color: #eee;
+font-family: "Courier New", monospace;
+overflow: hidden;
 }
-
-
-/* ========================================= */
-/* MAIN CONSOLE                              */
-/* ========================================= */
 
 #console {
-    width: 100%;
-    height: 100vh;
-
-    display: flex;
-    flex-direction: column;
-
-    background: #111;
+width: 100%;
+height: 100vh;
+display: flex;
+flex-direction: column;
+background: #111;
 }
-
-
-/* ========================================= */
-/* HEADER                                    */
-/* ========================================= */
 
 #header {
-    padding: 12px 16px;
-
-    background: #1b1b1b;
-
-    border-bottom: 2px solid #333;
-
-    color: #fff;
-
-    font-size: 18px;
-    font-weight: bold;
+padding: 12px 16px;
+background: #1b1b1b;
+border-bottom: 2px solid #333;
+color: #fff;
+font-size: 18px;
+font-weight: bold;
 }
-
-
-/* ========================================= */
-/* OUTPUT                                    */
-/* ========================================= */
 
 #output {
-    flex: 1;
-
-    overflow-y: auto;
-
-    padding: 14px 18px;
-
-    background: #101010;
-
-    font-size: 15px;
-
-    line-height: 1.45;
+flex: 1;
+overflow-y: auto;
+padding: 14px 18px;
+background: #101010;
+font-size: 15px;
+line-height: 1.45;
 }
 
-
-/* ========================================= */
-/* OUTPUT TEXT                               */
-/* ========================================= */
-
 #output p {
-    margin: 4px 0;
+margin: 4px 0;
 }
 
 #output .success {
-    color: #7cff7c;
+color: #7cff7c;
 }
 
 #output .error {
-    color: #ff6969;
+color: #ff6969;
 }
 
 #output .duck {
-    color: #ffd84d;
+color: #ffd84d;
 }
 
-
-/* ========================================= */
-/* INPUT                                     */
-/* ========================================= */
-
 #commandInput {
-    width: 100%;
-
-    padding: 14px 16px;
-
-    border: none;
-    border-top: 2px solid #333;
-
-    outline: none;
-
-    background: #181818;
-
-    color: #fff;
-
-    font-family: "Courier New", monospace;
-    font-size: 16px;
+width: 100%;
+padding: 14px 16px;
+border: none;
+border-top: 2px solid #333;
+outline: none;
+background: #181818;
+color: #fff;
+font-family: "Courier New", monospace;
+font-size: 16px;
 }
 
 #commandInput::placeholder {
-    color: #777;
+color: #777;
 }
 
 #commandInput:focus {
-    background: #202020;
+background: #202020;
 }
 
-
-/* ========================================= */
-/* FIELD                                     */
-/* ========================================= */
+/* ========================= */
+/* NORMAL FIELD              */
+/* ========================= */
 
 #field {
-    position: relative;
-
-    width: 100%;
-    height: 55vh;
-
-    min-height: 260px;
-
-    overflow: hidden;
-
-    display: none;
-
-    border-top: 2px solid #333;
-
-    background: #8fdcff;
-
-    transition:
-        background 0.5s ease,
-        filter 0.5s ease;
+position: relative;
+width: 100%;
+height: 55vh;
+min-height: 260px;
+overflow: hidden;
+display: none;
+border-top: 2px solid #333;
+background: #8fdcff;
+transition:
+background 0.5s ease,
+filter 0.5s ease;
 }
-
-
-/* ========================================= */
-/* AREA: FIELD                               */
-/* ========================================= */
 
 #field.area-field {
-    background:
-        linear-gradient(
-            #82d9ff 0%,
-            #b9edff 65%,
-            #78c850 65%,
-            #5eae3c 100%
-        );
+background:
+linear-gradient(
+#82d9ff 0%,
+#b9edff 65%,
+#78c850 65%,
+#5eae3c 100%
+);
 }
-
-
-/* ========================================= */
-/* AREA: FOREST                              */
-/* ========================================= */
 
 #field.area-forest {
-    background:
-        linear-gradient(
-            #6eb6d6 0%,
-            #9bd6e8 35%,
-            #47763d 35%,
-            #294f29 100%
-        );
+background:
+linear-gradient(
+#6eb6d6 0%,
+#9bd6e8 35%,
+#47763d 35%,
+#294f29 100%
+);
 }
-
-
-/* ========================================= */
-/* AREA: LAKE                                */
-/* ========================================= */
 
 #field.area-lake {
-    background:
-        linear-gradient(
-            #8edcff 0%,
-            #bcefff 25%,
-            #248ac0 25%,
-            #11638e 100%
-        );
+background:
+linear-gradient(
+#8edcff 0%,
+#bcefff 25%,
+#248ac0 25%,
+#11638e 100%
+);
 }
-
-
-/* ========================================= */
-/* AREA: FARM                                */
-/* ========================================= */
 
 #field.area-farm {
-    background:
-        linear-gradient(
-            #8edcff 0%,
-            #c9f0ff 50%,
-            #a87943 50%,
-            #7c542c 100%
-        );
+background:
+linear-gradient(
+#8edcff 0%,
+#c9f0ff 50%,
+#a87943 50%,
+#7c542c 100%
+);
 }
-
-
-/* ========================================= */
-/* AREA: VILLAGE                             */
-/* ========================================= */
 
 #field.area-village {
-    background:
-        linear-gradient(
-            #83d8ff 0%,
-            #c1efff 50%,
-            #c99c67 50%,
-            #a97848 100%
-        );
+background:
+linear-gradient(
+#83d8ff 0%,
+#c1efff 50%,
+#c99c67 50%,
+#a97848 100%
+);
 }
-
-
-/* ========================================= */
-/* AREA: MARKET                              */
-/* ========================================= */
 
 #field.area-market {
-    background:
-        linear-gradient(
-            #8edcff 0%,
-            #c9f1ff 55%,
-            #777 55%,
-            #4e4e4e 100%
-        );
+background:
+linear-gradient(
+#8edcff 0%,
+#c9f1ff 55%,
+#777 55%,
+#4e4e4e 100%
+);
 }
 
-
-/* ========================================= */
-/* DUCK                                      */
-/* ========================================= */
+/* ========================= */
+/* DUCKS                     */
+/* ========================= */
 
 .field-duck {
-    position: absolute;
-
-    width: 52px;
-    height: 52px;
-
-    transform:
-        translate(-50%, -50%);
-
-    pointer-events: auto;
-
-    z-index: 20;
-
-    transition:
-        filter 0.15s ease;
+position: absolute;
+width: 52px;
+height: 52px;
+transform: translate(-50%, -50%);
+pointer-events: auto;
+z-index: 20;
 }
-
-
-/* ========================================= */
-/* DUCK BODY                                 */
-/* ========================================= */
 
 .duck-body {
-    position: absolute;
-
-    width: 34px;
-    height: 27px;
-
-    left: 8px;
-    top: 21px;
-
-    border-radius: 55% 55% 48% 48%;
-
-    background: #ffe34d;
-
-    border: 2px solid #c9a900;
+position: absolute;
+width: 34px;
+height: 27px;
+left: 8px;
+top: 21px;
+border-radius: 55% 55% 48% 48%;
+background: #ffe34d;
+border: 2px solid #c9a900;
 }
-
-
-/* ========================================= */
-/* DUCK HEAD                                 */
-/* ========================================= */
 
 .duck-head {
-    position: absolute;
-
-    width: 27px;
-    height: 27px;
-
-    left: 18px;
-    top: 5px;
-
-    border-radius: 50%;
-
-    background: #ffe34d;
-
-    border: 2px solid #c9a900;
-
-    z-index: 2;
+position: absolute;
+width: 27px;
+height: 27px;
+left: 18px;
+top: 5px;
+border-radius: 50%;
+background: #ffe34d;
+border: 2px solid #c9a900;
+z-index: 2;
 }
-
-
-/* ========================================= */
-/* DUCK EYE                                  */
-/* ========================================= */
 
 .duck-eye {
-    position: absolute;
-
-    width: 5px;
-    height: 5px;
-
-    right: 6px;
-    top: 7px;
-
-    border-radius: 50%;
-
-    background: #111;
+position: absolute;
+width: 5px;
+height: 5px;
+right: 6px;
+top: 7px;
+border-radius: 50%;
+background: #111;
 }
-
-
-/* ========================================= */
-/* DUCK BEAK                                 */
-/* ========================================= */
 
 .duck-beak {
-    position: absolute;
-
-    width: 11px;
-    height: 7px;
-
-    right: -8px;
-    top: 12px;
-
-    border-radius: 50%;
-
-    background: #f59b23;
-
-    border: 1px solid #c66f00;
+position: absolute;
+width: 11px;
+height: 7px;
+right: -8px;
+top: 12px;
+border-radius: 50%;
+background: #f59b23;
+border: 1px solid #c66f00;
 }
-
-
-/* ========================================= */
-/* PEKIN ADULT                              */
-/* ========================================= */
 
 .field-duck.pekin-adult .duck-body,
 .field-duck.pekin-adult .duck-head {
-    background: #fff;
-    border-color: #bbb;
+background: #fff;
+border-color: #bbb;
 }
-
-
-/* ========================================= */
-/* PEKIN DUCKLING                            */
-/* ========================================= */
 
 .field-duck.pekin-duckling .duck-body,
 .field-duck.pekin-duckling .duck-head {
-    background: #fff27a;
-    border-color: #d4bd28;
+background: #fff27a;
+border-color: #d4bd28;
 }
 
-
-/* ========================================= */
-/* MALLARD                                   */
-/* ========================================= */
-
 .field-duck.mallard .duck-body {
-    background: #8b6a3e;
-    border-color: #5e4528;
+background: #8b6a3e;
+border-color: #5e4528;
 }
 
 .field-duck.mallard .duck-head {
-    background: #287447;
-    border-color: #19502f;
+background: #287447;
+border-color: #19502f;
 }
 
-
-/* ========================================= */
-/* FROZEN DUCK                               */
-/* ========================================= */
-
 .field-duck.frozen {
-    filter:
-        saturate(0.45)
-        brightness(1.15)
-        drop-shadow(0 0 5px #b9efff);
+filter:
+saturate(0.45)
+brightness(1.15)
+drop-shadow(0 0 5px #b9efff);
 }
 
 .field-duck.frozen::after {
-    content: "❄️";
-
-    position: absolute;
-
-    left: 0;
-    top: -16px;
-
-    font-size: 17px;
-
-    z-index: 30;
+content: "❄️";
+position: absolute;
+left: 0;
+top: -16px;
+font-size: 17px;
 }
 
-
-/* ========================================= */
-/* WEATHER EFFECT BASE                       */
-/* ========================================= */
+/* ========================= */
+/* WEATHER                   */
+/* ========================= */
 
 .weather-effect {
-    position: absolute;
-
-    pointer-events: none;
-
-    z-index: 50;
+position: absolute;
+pointer-events: none;
+z-index: 50;
 }
 
-
-/* ========================================= */
-/* RAIN                                      */
-/* ========================================= */
-
 .rain-drop {
-    width: 2px;
-    height: 18px;
-
-    background: #bcecff;
-
-    border-radius: 2px;
-
-    animation: rainFall 1s linear forwards;
+width: 2px;
+height: 18px;
+background: #bcecff;
+border-radius: 2px;
+animation: rainFall 1s linear forwards;
 }
 
 @keyframes rainFall {
-
-    from {
-        transform: translateY(-20px);
-        opacity: 0.9;
-    }
-
-    to {
-        transform: translateY(60vh);
-        opacity: 0;
-    }
+from {
+transform: translateY(-20px);
+opacity: 0.9;
 }
 
 
-/* ========================================= */
-/* PUDDLES                                   */
-/* ========================================= */
+to {
+    transform: translateY(60vh);
+    opacity: 0;
+}
+
+
+}
 
 .weather-puddle {
-    position: absolute;
-
-    width: 45px;
-    height: 18px;
-
-    border-radius: 50%;
-
-    background: rgba(40, 140, 190, 0.55);
-
-    border: 1px solid rgba(20, 90, 140, 0.7);
-
-    z-index: 10;
-
-    pointer-events: none;
-
-    animation: puddleAppear 0.4s ease-out;
+position: absolute;
+width: 45px;
+height: 18px;
+border-radius: 50%;
+background: rgba(40, 140, 190, 0.55);
+border: 1px solid rgba(20, 90, 140, 0.7);
+z-index: 10;
+pointer-events: none;
+animation: puddleAppear 0.4s ease-out;
 }
 
 @keyframes puddleAppear {
-
-    from {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+from {
+transform: scale(0);
+opacity: 0;
 }
 
 
-/* ========================================= */
-/* SNOW                                     */
-/* ========================================= */
+to {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+}
 
 .snowflake {
-    position: absolute;
-
-    color: #fff;
-
-    font-size: 18px;
-
-    text-shadow:
-        0 0 4px #9bdcff;
-
-    animation: snowFall 3s linear forwards;
+position: absolute;
+color: #fff;
+font-size: 18px;
+text-shadow: 0 0 4px #9bdcff;
+animation: snowFall 3s linear forwards;
 }
 
 @keyframes snowFall {
-
-    from {
-        transform:
-            translateY(-25px)
-            rotate(0deg);
-        opacity: 0;
-    }
-
-    10% {
-        opacity: 1;
-    }
-
-    to {
-        transform:
-            translateY(60vh)
-            rotate(180deg);
-        opacity: 0.8;
-    }
+from {
+transform:
+translateY(-25px)
+rotate(0deg);
+opacity: 0;
 }
 
 
-/* ========================================= */
-/* SNOWMAN                                   */
-/* ========================================= */
+10% {
+    opacity: 1;
+}
+
+to {
+    transform:
+        translateY(60vh)
+        rotate(180deg);
+    opacity: 0.8;
+}
+
+
+}
 
 .weather-snowman {
-    position: absolute;
-
-    font-size: 34px;
-
-    z-index: 15;
-
-    pointer-events: none;
-
-    animation:
-        snowmanAppear 0.6s ease-out;
+position: absolute;
+font-size: 34px;
+z-index: 15;
+pointer-events: none;
+animation: snowmanAppear 0.6s ease-out;
 }
 
 @keyframes snowmanAppear {
-
-    from {
-        transform: scale(0);
-
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-
-        opacity: 1;
-    }
+from {
+transform: scale(0);
+opacity: 0;
 }
 
 
-/* ========================================= */
-/* RAIN WEATHER FILTER                       */
-/* ========================================= */
+to {
+    transform: scale(1);
+    opacity: 1;
+}
+
+
+}
 
 #field.area-field.weather-rain,
 #field.area-forest.weather-rain,
@@ -571,67 +371,808 @@ body {
 #field.area-farm.weather-rain,
 #field.area-village.weather-rain,
 #field.area-market.weather-rain {
-    filter: brightness(0.9);
+filter: brightness(0.9);
 }
-
-
-/* ========================================= */
-/* SNOW WEATHER                              */
-/* ========================================= */
 
 #field.weather-snow {
-    filter: brightness(1.05);
+filter: brightness(1.05);
+}
+
+/* ========================= */
+/* BOSS BATTLEFIELD          */
+/* ========================= */
+
+#bossBattlefield {
+position: relative;
+width: 100%;
+min-height: 360px;
+height: 55vh;
+overflow: hidden;
+display: none;
+
+
+background:
+    radial-gradient(
+        circle at center,
+        #252525 0%,
+        #101010 65%,
+        #030303 100%
+    );
+
+border-top: 2px solid #444;
+cursor: none;
+user-select: none;
+
+
+}
+
+#bossBattlefield.boss-active {
+display: block;
+}
+
+/* ========================= */
+/* BOSS                      */
+/* ========================= */
+
+#bossTitle {
+position: absolute;
+left: 50%;
+top: 12px;
+transform: translateX(-50%);
+z-index: 100;
+color: #fff;
+font-size: 18px;
+font-weight: bold;
+white-space: nowrap;
+}
+
+#bossHealthContainer {
+position: absolute;
+left: 50%;
+top: 42px;
+transform: translateX(-50%);
+width: min(600px, 80%);
+height: 24px;
+background: #222;
+border: 2px solid #777;
+border-radius: 4px;
+overflow: hidden;
+z-index: 100;
+}
+
+#bossHealthBar {
+width: 100%;
+height: 100%;
+background: #e53935;
+transition: width 0.15s linear;
+}
+
+#bossHealthText {
+position: absolute;
+left: 50%;
+top: 45px;
+transform: translateX(-50%);
+z-index: 110;
+color: #fff;
+font-weight: bold;
+font-size: 13px;
+pointer-events: none;
+text-shadow: 1px 1px #000;
+}
+
+#megaDuckey {
+position: absolute;
+left: 50%;
+top: 48%;
+transform: translate(-50%, -50%);
+width: 120px;
+height: 120px;
+z-index: 50;
+pointer-events: none;
+transition:
+transform 0.08s ease,
+filter 0.1s ease;
+}
+
+#megaDuckey .mega-body {
+position: absolute;
+width: 82px;
+height: 65px;
+left: 15px;
+top: 48px;
+border-radius: 55% 55% 48% 48%;
+background: #ffd92f;
+border: 5px solid #a97800;
+box-shadow: 0 0 20px rgba(255, 210, 40, 0.45);
+}
+
+#megaDuckey .mega-head {
+position: absolute;
+width: 68px;
+height: 68px;
+left: 42px;
+top: 5px;
+border-radius: 50%;
+background: #ffd92f;
+border: 5px solid #a97800;
+z-index: 2;
+}
+
+#megaDuckey .mega-eye {
+position: absolute;
+width: 10px;
+height: 10px;
+right: 15px;
+top: 17px;
+border-radius: 50%;
+background: #111;
+}
+
+#megaDuckey .mega-beak {
+position: absolute;
+width: 31px;
+height: 20px;
+right: -23px;
+top: 30px;
+border-radius: 50%;
+background: #f28c18;
+border: 3px solid #b65d00;
+}
+
+#megaDuckey.hit {
+filter:
+brightness(2)
+drop-shadow(0 0 15px #fff);
+}
+
+#megaDuckey.defeated {
+filter:
+grayscale(1)
+brightness(0.5);
+opacity: 0.5;
+}
+
+/* ========================= */
+/* CURSOR                    */
+/* ========================= */
+
+#bossCursor {
+position: absolute;
+width: 30px;
+height: 30px;
+z-index: 200;
+pointer-events: none;
+transform: translate(-50%, -50%);
+}
+
+#bossCursor::before,
+#bossCursor::after {
+content: "";
+position: absolute;
+background: #fff;
+box-shadow: 0 0 5px #000;
+}
+
+#bossCursor::before {
+width: 30px;
+height: 2px;
+left: 0;
+top: 14px;
+}
+
+#bossCursor::after {
+width: 2px;
+height: 30px;
+left: 14px;
+top: 0;
+}
+
+/* ========================= */
+/* PLAYER PROJECTILES        */
+/* ========================= */
+
+.feather-projectile {
+position: absolute;
+width: 28px;
+height: 10px;
+z-index: 150;
+pointer-events: none;
+transform-origin: center;
+}
+
+.feather-projectile::before {
+content: "🪶";
+position: absolute;
+left: 0;
+top: -9px;
+font-size: 24px;
+filter: drop-shadow(0 0 4px #fff);
+}
+
+/* ========================= */
+/* BOSS PROJECTILES          */
+/* ========================= */
+
+.boss-projectile {
+position: absolute;
+width: 22px;
+height: 22px;
+border-radius: 50%;
+
+
+background:
+    radial-gradient(
+        circle,
+        #fff 0%,
+        #ff7777 25%,
+        #ff2222 60%,
+        #a00000 100%
+    );
+
+border: 2px solid #ffaaaa;
+
+box-shadow:
+    0 0 8px #ff0000,
+    0 0 18px rgba(255, 0, 0, 0.7);
+
+z-index: 140;
+pointer-events: none;
+
+
+}
+
+.boss-projectile::after {
+content: "";
+position: absolute;
+
+
+width: 34px;
+height: 6px;
+
+left: -10px;
+top: 6px;
+
+background: rgba(255, 70, 70, 0.25);
+
+border-radius: 50%;
+
+filter: blur(3px);
+
+
+}
+
+/* ========================= */
+/* COOLDOWN                  */
+/* ========================= */
+
+#featherCooldown {
+position: absolute;
+left: 50%;
+bottom: 18px;
+transform: translateX(-50%);
+z-index: 200;
+padding: 7px 12px;
+background: rgba(0, 0, 0, 0.75);
+border: 1px solid #555;
+border-radius: 4px;
+color: #fff;
+font-size: 13px;
+pointer-events: none;
+}
+
+#featherCooldown.ready {
+color: #7cff7c;
+border-color: #4caf50;
+}
+
+/* ========================= */
+/* PLAYER HP                 */
+/* ========================= */
+
+#playerHealthContainer {
+position: absolute;
+left: 18px;
+bottom: 18px;
+width: 220px;
+height: 20px;
+background: #222;
+border: 2px solid #777;
+border-radius: 4px;
+overflow: hidden;
+z-index: 100;
+}
+
+#playerHealthBar {
+width: 100%;
+height: 100%;
+background: #4caf50;
+transition: width 0.15s linear;
+}
+
+#playerHealthText {
+position: absolute;
+left: 28px;
+bottom: 42px;
+color: #fff;
+font-size: 13px;
+font-weight: bold;
+z-index: 110;
+text-shadow: 1px 1px #000;
+}
+
+/* ========================= */
+/* ATTACK FLASH               */
+/* ========================= */
+
+.boss-attack {
+position: absolute;
+pointer-events: none;
+z-index: 130;
+animation: bossAttackFlash 0.35s ease-out forwards;
+}
+
+@keyframes bossAttackFlash {
+from {
+transform: scale(0.5);
+opacity: 1;
 }
 
 
-/* ========================================= */
-/* SCROLLBAR                                 */
-/* ========================================= */
+to {
+    transform: scale(1.8);
+    opacity: 0;
+}
+
+}
+
+/* ========================= */
+/* DAMAGE NUMBER             */
+/* ========================= */
+
+.damage-number {
+position: absolute;
+z-index: 250;
+color: #fff;
+font-size: 18px;
+font-weight: bold;
+text-shadow: 2px 2px #000;
+pointer-events: none;
+animation: damageFloat 0.8s ease-out forwards;
+}
+
+@keyframes damageFloat {
+from {
+transform: translateY(0);
+opacity: 1;
+}
+
+to {
+    transform: translateY(-40px);
+    opacity: 0;
+}
+
+
+}
+
+/* ========================= */
+/* PLAYER HIT                */
+/* ========================= */
+
+#bossBattlefield.player-hit {
+animation: playerHitFlash 0.18s ease-out;
+}
+
+@keyframes playerHitFlash {
+0% {
+filter: brightness(1);
+}
+
+50% {
+    filter: brightness(1.7);
+}
+
+100% {
+    filter: brightness(1);
+}
+
+
+}
+
+/* ========================= */
+/* VICTORY / DEFEAT          */
+/* ========================= */
+
+#bossVictory,
+#bossDefeat {
+position: absolute;
+left: 50%;
+top: 50%;
+transform: translate(-50%, -50%);
+z-index: 500;
+display: none;
+padding: 20px 30px;
+background: rgba(0, 0, 0, 0.9);
+font-size: 22px;
+font-weight: bold;
+text-align: center;
+}
+
+#bossVictory {
+border: 2px solid #7cff7c;
+color: #7cff7c;
+}
+
+#bossDefeat {
+border: 2px solid #ff6969;
+color: #ff6969;
+}
+
+#bossVictory.show,
+#bossDefeat.show {
+display: block;
+}
+
+/* ========================= */
+/* SCROLLBAR                 */
+/* ========================= */
 
 #output::-webkit-scrollbar {
-    width: 10px;
+width: 10px;
 }
 
 #output::-webkit-scrollbar-track {
-    background: #101010;
+background: #101010;
 }
 
 #output::-webkit-scrollbar-thumb {
-    background: #444;
-
-    border-radius: 5px;
+background: #444;
+border-radius: 5px;
 }
 
 #output::-webkit-scrollbar-thumb:hover {
-    background: #666;
+background: #666;
 }
 
-
-/* ========================================= */
-/* MOBILE                                    */
-/* ========================================= */
+/* ========================= */
+/* MOBILE                    */
+/* ========================= */
 
 @media (max-width: 700px) {
 
-    #header {
-        font-size: 15px;
-    }
 
-    #output {
+#header {
+    font-size: 15px;
+}
+
+#output {
+    font-size: 13px;
+}
+
+#commandInput {
+    font-size: 14px;
+}
+
+#field,
+#bossBattlefield {
+    height: 45vh;
+}
+
+.field-duck {
+    transform:
+        translate(-50%, -50%)
+        scale(0.85);
+}
+
+#bossBattlefield {
+    min-height: 250px;
+}
+
+#bossTitle {
+    font-size: 15px;
+}
+
+#bossHealthContainer {
+    width: 85%;
+}
+
+#megaDuckey {
+    transform:
+        translate(-50%, -50%)
+        scale(0.8);
+}
+
+#playerHealthContainer {
+    width: 160px;
+}
+
+#featherCooldown {
+    font-size: 11px;
+}
+
+
+}
+
+/* ========================= */
+/* QUACKSCRIPT ADVANCED MODE */
+/* ========================= */
+
+#advancedTab {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    background: #0b0b0b;
+    color: #eee;
+}
+
+#advancedTab.active {
+    display: flex;
+}
+
+/* ========================= */
+/* QUACKSCRIPT HEADER        */
+/* ========================= */
+
+#quackScriptHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 14px;
+    background: #181818;
+    border-bottom: 2px solid #333;
+}
+
+#quackScriptTitle {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffd84d;
+}
+
+#quackScriptVersion {
+    color: #777;
+    font-size: 12px;
+}
+
+/* ========================= */
+/* QUACKSCRIPT EDITOR        */
+/* ========================= */
+
+#quackScriptEditor {
+    flex: 1;
+    min-height: 200px;
+    width: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 16px;
+    background: #0d0d0d;
+    color: #eee;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+#quackScriptEditor::selection {
+    background: #555;
+}
+
+/* QuackScript comments */
+.qs-comment {
+    color: #777;
+}
+
+/* ========================= */
+/* QUACKSCRIPT CONTROLS      */
+/* ========================= */
+
+#quackScriptControls {
+    display: flex;
+    gap: 8px;
+    padding: 10px;
+    background: #181818;
+    border-top: 2px solid #333;
+    border-bottom: 2px solid #333;
+}
+
+.qs-button {
+    padding: 8px 14px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background: #222;
+    color: #eee;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+}
+
+.qs-button:hover {
+    background: #303030;
+}
+
+.qs-button:active {
+    transform: translateY(1px);
+}
+
+.qs-run {
+    color: #7cff7c;
+    border-color: #4caf50;
+}
+
+.qs-run:hover {
+    background: #183018;
+}
+
+.qs-stop {
+    color: #ff6969;
+    border-color: #a94444;
+}
+
+/* ========================= */
+/* QUACKSCRIPT OUTPUT        */
+/* ========================= */
+
+#quackScriptOutput {
+    height: 180px;
+    overflow-y: auto;
+    padding: 12px 16px;
+    background: #101010;
+    border-top: 2px solid #333;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+#quackScriptOutput p {
+    margin: 3px 0;
+}
+
+.qs-success {
+    color: #7cff7c;
+}
+
+.qs-error {
+    color: #ff6969;
+}
+
+.qs-info {
+    color: #8fdcff;
+}
+
+.qs-duck {
+    color: #ffd84d;
+}
+
+/* ========================= */
+/* QUACKSCRIPT LINE NUMBERS  */
+/* ========================= */
+
+#quackScriptEditorWrapper {
+    position: relative;
+    flex: 1;
+    min-height: 200px;
+    display: flex;
+    overflow: hidden;
+}
+
+#quackScriptLineNumbers {
+    width: 48px;
+    padding: 16px 8px;
+    background: #151515;
+    border-right: 1px solid #333;
+    color: #555;
+    font-family: "Courier New", monospace;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: right;
+    user-select: none;
+    overflow: hidden;
+}
+
+#quackScriptEditor {
+    overflow-y: auto;
+}
+
+/* ========================= */
+/* QUACKSCRIPT SCROLLBARS     */
+/* ========================= */
+
+#quackScriptEditor::-webkit-scrollbar,
+#quackScriptOutput::-webkit-scrollbar {
+    width: 10px;
+}
+
+#quackScriptEditor::-webkit-scrollbar-track,
+#quackScriptOutput::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+#quackScriptEditor::-webkit-scrollbar-thumb,
+#quackScriptOutput::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 5px;
+}
+
+#quackScriptEditor::-webkit-scrollbar-thumb:hover,
+#quackScriptOutput::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* ========================= */
+/* TAB SWITCHER               */
+/* ========================= */
+
+#modeTabs {
+    display: flex;
+    background: #181818;
+    border-bottom: 2px solid #333;
+}
+
+.mode-tab {
+    padding: 10px 18px;
+    border: none;
+    border-right: 1px solid #333;
+    background: #181818;
+    color: #888;
+    font-family: "Courier New", monospace;
+    cursor: pointer;
+}
+
+.mode-tab:hover {
+    color: #fff;
+    background: #222;
+}
+
+.mode-tab.active {
+    color: #ffd84d;
+    background: #202020;
+    border-bottom: 2px solid #ffd84d;
+}
+
+/* ========================= */
+/* MOBILE QUACKSCRIPT        */
+/* ========================= */
+
+@media (max-width: 700px) {
+
+    #quackScriptEditor {
         font-size: 13px;
     }
 
-    #commandInput {
-        font-size: 14px;
+    #quackScriptLineNumbers {
+        font-size: 13px;
+        width: 38px;
     }
 
-    #field {
-        height: 45vh;
+    #quackScriptOutput {
+        height: 140px;
+        font-size: 12px;
     }
 
-    .field-duck {
-        transform:
-            translate(-50%, -50%)
-            scale(0.85);
+    #quackScriptControls {
+        overflow-x: auto;
     }
+
+    .qs-button {
+        white-space: nowrap;
+        font-size: 12px;
+        padding: 7px 10px;
+    }
+
+}
+
+#basicMode {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#advancedTab {
+    flex: 1;
+    min-height: 0;
+}
+
+#advancedTab.active {
+    display: flex;
+    flex-direction: column;
 }
