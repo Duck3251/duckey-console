@@ -3,7 +3,43 @@
 // Duckey Console - Advanced Mode
 // ==========================================
 
+function createQuackSprite(name) {
+    const field = document.getElementById("field");
+
+    if (!field) {
+        console.error("QUACKSCRIPT ERROR: #field not found.");
+        return null;
+    }
+
+    const sprite = document.createElement("div");
+
+    sprite.className = "qs-sprite";
+    sprite.dataset.spriteName = name;
+
+    sprite.innerHTML = `
+        <div class="qs-duck-body"></div>
+
+        <div class="qs-duck-head">
+            <div class="qs-duck-eye"></div>
+            <div class="qs-duck-beak"></div>
+        </div>
+    `;
+
+    sprite.style.left = "50%";
+    sprite.style.top = "50%";
+
+    field.appendChild(sprite);
+
+    return sprite;
+}
+
+
+// ==========================================
+// 🦆 QUACKSCRIPT
+// ==========================================
+
 const QuackScript = {
+
     variables: {},
     output: [],
     running: false,
@@ -16,69 +52,147 @@ const QuackScript = {
 
     print(message) {
         this.output.push(message);
-        console.log("[QUACKSCRIPT]", message);
+
+        console.log(
+            "[QUACKSCRIPT]",
+            message
+        );
+
         addQSOutput(message);
     },
 
     error(message) {
-        const errorMessage = `QUACKSCRIPT ERROR: ${message}`;
+
+        const errorMessage =
+            `QUACKSCRIPT ERROR: ${message}`;
+
         this.output.push(errorMessage);
+
         console.error(errorMessage);
-        addQSOutput(errorMessage, true);
+
+        addQSOutput(
+            errorMessage,
+            true
+        );
     },
 
+
+    // ==========================================
+    // VARIABLES
+    // ==========================================
+
     createVariable(name) {
+
         if (!name) {
-            this.error("Variable name is missing.");
+
+            this.error(
+                "Variable name is missing."
+            );
+
             return;
         }
 
-        if (this.variables[name] !== undefined) {
-            this.error(`Variable "${name}" already exists.`);
+        if (
+            this.variables[name] !== undefined
+        ) {
+
+            this.error(
+                `Variable "${name}" already exists.`
+            );
+
             return;
         }
 
         this.variables[name] = null;
-        this.print(`Created variable "${name}".`);
+
+        this.print(
+            `Created variable "${name}".`
+        );
     },
 
+
     setVariable(name, value) {
-        if (this.variables[name] === undefined) {
-            this.error(`Variable "${name}" does not exist.`);
+
+        if (
+            this.variables[name] === undefined
+        ) {
+
+            this.error(
+                `Variable "${name}" does not exist.`
+            );
+
             return;
         }
 
         this.variables[name] = value;
-        this.print(`${name} = ${value}`);
+
+        this.print(
+            `${name} = ${value}`
+        );
     },
 
+
+    // ==========================================
+    // RUN QUACKSCRIPT
+    // ==========================================
+
     run(code) {
+
         this.reset();
+
         this.running = true;
 
         clearQSOutput();
-        addQSOutput("▶ Running QuackScript...");
 
-        const lines = code.split(/\r?\n/);
+        addQSOutput(
+            "▶ Running QuackScript..."
+        );
 
-        for (let i = 0; i < lines.length; i++) {
+        const lines =
+            code.split(/\r?\n/);
+
+
+        for (
+            let i = 0;
+            i < lines.length;
+            i++
+        ) {
+
             if (!this.running) {
-                addQSOutput("■ QuackScript stopped.");
+
+                addQSOutput(
+                    "■ QuackScript stopped."
+                );
+
                 return;
             }
 
-            const line = lines[i].trim();
 
+            const line =
+                lines[i].trim();
+
+
+            // Ignore empty lines
             if (line === "") {
                 continue;
             }
 
-            // Comments
-            if (line.startsWith("#")) {
+
+            // ==================================
+            // COMMENTS
+            // ==================================
+
+            if (
+                line.startsWith("#")
+            ) {
                 continue;
             }
 
-            // QuackScript block markers
+
+            // ==================================
+            // BLOCK MARKERS
+            // ==================================
+
             if (
                 line === "//" ||
                 line === "-" ||
@@ -88,94 +202,248 @@ const QuackScript = {
                 continue;
             }
 
-            this.executeLine(line, i + 1);
+
+            this.executeLine(
+                line,
+                i + 1
+            );
         }
 
+
         if (this.running) {
-            addQSOutput("✓ QuackScript finished.");
+
+            addQSOutput(
+                "✓ QuackScript finished."
+            );
         }
 
         this.running = false;
     },
 
-    executeLine(line, lineNumber) {
 
-        // Create Variable
-        if (line.startsWith("Create Variable ")) {
+    // ==========================================
+    // EXECUTE ONE LINE
+    // ==========================================
 
-            const name = line
-                .substring("Create Variable ".length)
-                .trim();
+    executeLine(
+        line,
+        lineNumber
+    ) {
+
+
+        // ==================================
+        // CREATE VARIABLE
+        // ==================================
+
+        if (
+            line.startsWith(
+                "Create Variable "
+            )
+        ) {
+
+            const name =
+                line
+                    .substring(
+                        "Create Variable ".length
+                    )
+                    .trim();
 
             this.createVariable(name);
+
             return;
         }
 
-        // Variable assignment
-        if (line.includes("=")) {
 
-            const parts = line.split("=");
+        // ==================================
+        // CREATE SPRITE
+        // ==================================
 
-            if (parts.length !== 2) {
+        if (
+            line === "Create Sprite"
+        ) {
+
+            this.print(
+                "Creating sprite..."
+            );
+
+            return;
+        }
+
+
+        // ==================================
+        // SPRITE PARTS
+        // ==================================
+
+        if (
+            line.startsWith(
+                "Sprite Parts"
+            )
+        ) {
+
+            this.print(
+                `Sprite parts: ${line}`
+            );
+
+            return;
+        }
+
+
+        // ==================================
+        // SPRITE COLOUR
+        // ==================================
+
+        if (
+            line.startsWith(
+                "Sprite Colour"
+            )
+        ) {
+
+            this.print(
+                `Sprite colours: ${line}`
+            );
+
+            return;
+        }
+
+
+        // ==================================
+        // SPRITE = NAME
+        // ==================================
+
+        if (
+            line.startsWith(
+                "Sprite ="
+            )
+        ) {
+
+            const spriteName =
+                line
+                    .substring(
+                        "Sprite =".length
+                    )
+                    .trim();
+
+
+            if (!spriteName) {
+
                 this.error(
-                    `Line ${lineNumber}: Invalid assignment.`
+                    `Line ${lineNumber}: Sprite name is missing.`
                 );
+
                 return;
             }
 
-            const name = parts[0].trim();
-            const valueText = parts[1].trim();
+
+            const sprite =
+                createQuackSprite(
+                    spriteName
+                );
+
+
+            if (sprite) {
+
+                this.print(
+                    `Created sprite "${spriteName}".`
+                );
+            }
+
+            return;
+        }
+
+
+        // ==================================
+        // VARIABLE ASSIGNMENT
+        // ==================================
+
+        if (
+            line.includes("=")
+        ) {
+
+            const parts =
+                line.split("=");
+
+
+            if (
+                parts.length !== 2
+            ) {
+
+                this.error(
+                    `Line ${lineNumber}: Invalid assignment.`
+                );
+
+                return;
+            }
+
+
+            const name =
+                parts[0].trim();
+
+            const valueText =
+                parts[1].trim();
+
+
+            if (!name) {
+
+                this.error(
+                    `Line ${lineNumber}: Missing variable name.`
+                );
+
+                return;
+            }
+
 
             let value;
+
 
             // Number
             if (
                 valueText !== "" &&
                 !isNaN(valueText)
             ) {
-                value = Number(valueText);
+
+                value =
+                    Number(valueText);
             }
+
 
             // Text
             else if (
                 valueText.startsWith('"') &&
                 valueText.endsWith('"')
             ) {
-                value = valueText.slice(1, -1);
+
+                value =
+                    valueText.slice(
+                        1,
+                        -1
+                    );
             }
 
+
+            // Other command/value
             else {
-                // Sprite commands aren't variables yet
-                this.print(`Read command: ${line}`);
+
+                this.error(
+                    `Line ${lineNumber}: Unknown value "${valueText}".`
+                );
+
                 return;
             }
 
-            this.setVariable(name, value);
+
+            this.setVariable(
+                name,
+                value
+            );
+
             return;
         }
 
-        // Sprite commands
-        if (line === "Create Sprite") {
-            this.print("Creating sprite...");
-            return;
-        }
 
-        if (line.startsWith("Sprite Parts")) {
-            this.print(`Sprite parts: ${line}`);
-            return;
-        }
+        // ==================================
+        // UNKNOWN COMMAND
+        // ==================================
 
-        if (line.startsWith("Sprite Colour")) {
-            this.print(`Sprite colours: ${line}`);
-            return;
-        }
-
-        if (line.startsWith("Sprite =")) {
-            this.print(`Sprite selected: ${line}`);
-            return;
-        }
-
-        // Unknown command
         this.error(
             `Line ${lineNumber}: Unknown command "${line}".`
         );
@@ -184,71 +452,129 @@ const QuackScript = {
 
 
 // ==========================================
-// 🦆 ADVANCED TAB BUTTONS
+// 🦆 ADVANCED TAB ELEMENTS
 // ==========================================
 
-const qsEditor = document.getElementById("quackScriptEditor");
-const qsOutput = document.getElementById("quackScriptOutput");
+const qsEditor =
+    document.getElementById(
+        "quackScriptEditor"
+    );
 
-const qsRunButton = document.getElementById("qsRunButton");
-const qsStopButton = document.getElementById("qsStopButton");
-const qsNewButton = document.getElementById("qsNewButton");
-const qsSaveButton = document.getElementById("qsSaveButton");
-const qsLoadButton = document.getElementById("qsLoadButton");
-const qsClearButton = document.getElementById("qsClearButton");
-const qsFileInput = document.getElementById("qsFileInput");
+const qsOutput =
+    document.getElementById(
+        "quackScriptOutput"
+    );
+
+const qsRunButton =
+    document.getElementById(
+        "qsRunButton"
+    );
+
+const qsStopButton =
+    document.getElementById(
+        "qsStopButton"
+    );
+
+const qsNewButton =
+    document.getElementById(
+        "qsNewButton"
+    );
+
+const qsSaveButton =
+    document.getElementById(
+        "qsSaveButton"
+    );
+
+const qsLoadButton =
+    document.getElementById(
+        "qsLoadButton"
+    );
+
+const qsClearButton =
+    document.getElementById(
+        "qsClearButton"
+    );
+
+const qsFileInput =
+    document.getElementById(
+        "qsFileInput"
+    );
 
 
 // ==========================================
 // OUTPUT
 // ==========================================
 
-function addQSOutput(message, error = false) {
+function addQSOutput(
+    message,
+    error = false
+) {
 
-    if (!qsOutput) return;
+    if (!qsOutput) {
+        return;
+    }
 
-    const p = document.createElement("p");
 
-    p.className = error
-        ? "qs-error"
-        : "qs-info";
+    const p =
+        document.createElement("p");
 
-    p.textContent = message;
+
+    p.className =
+        error
+            ? "qs-error"
+            : "qs-info";
+
+
+    p.textContent =
+        message;
+
 
     qsOutput.appendChild(p);
 
-    qsOutput.scrollTop = qsOutput.scrollHeight;
+
+    qsOutput.scrollTop =
+        qsOutput.scrollHeight;
 }
 
 
 function clearQSOutput() {
 
-    if (!qsOutput) return;
+    if (!qsOutput) {
+        return;
+    }
 
     qsOutput.innerHTML = "";
 }
 
 
 // ==========================================
-// ▶ RUN
+// ▶ RUN .QS
 // ==========================================
 
 if (qsRunButton) {
 
-    qsRunButton.addEventListener("click", () => {
+    qsRunButton.addEventListener(
+        "click",
+        () => {
 
-        const code = qsEditor.value;
+            const code =
+                qsEditor.value;
 
-        if (!code.trim()) {
-            addQSOutput(
-                "QUACKSCRIPT ERROR: No code to run.",
-                true
-            );
-            return;
+
+            if (!code.trim()) {
+
+                addQSOutput(
+                    "QUACKSCRIPT ERROR: No code to run.",
+                    true
+                );
+
+                return;
+            }
+
+
+            QuackScript.run(code);
         }
-
-        QuackScript.run(code);
-    });
+    );
 }
 
 
@@ -258,12 +584,19 @@ if (qsRunButton) {
 
 if (qsStopButton) {
 
-    qsStopButton.addEventListener("click", () => {
+    qsStopButton.addEventListener(
+        "click",
+        () => {
 
-        QuackScript.running = false;
+            QuackScript.running =
+                false;
 
-        addQSOutput("■ QuackScript stopped.");
-    });
+
+            addQSOutput(
+                "■ QuackScript stopped."
+            );
+        }
+    );
 }
 
 
@@ -273,22 +606,32 @@ if (qsStopButton) {
 
 if (qsNewButton) {
 
-    qsNewButton.addEventListener("click", () => {
+    qsNewButton.addEventListener(
+        "click",
+        () => {
 
-        qsEditor.value =
+            qsEditor.value =
 `#DuckeyIsBest
 
 //
 
 Create Variable Coins
-Coins = 100`;
+Coins = 100
 
-        clearQSOutput();
+Create Sprite
+Sprite Parts = Beak, Body, Head, Eyes, Feet
+Sprite Colour = Beak, O. Head, Y. Eyes, Bl. Feet, O. Body, Y.
+Sprite = Duckey`;
 
-        addQSOutput(
-            "New QuackScript created."
-        );
-    });
+
+            clearQSOutput();
+
+
+            addQSOutput(
+                "New QuackScript created."
+            );
+        }
+    );
 }
 
 
@@ -298,34 +641,67 @@ Coins = 100`;
 
 if (qsSaveButton) {
 
-    qsSaveButton.addEventListener("click", () => {
+    qsSaveButton.addEventListener(
+        "click",
+        () => {
 
-        const code = qsEditor.value;
+            const code =
+                qsEditor.value;
 
-        const blob = new Blob(
-            [code],
-            { type: "text/plain" }
-        );
 
-        const url = URL.createObjectURL(blob);
+            const blob =
+                new Blob(
+                    [code],
+                    {
+                        type:
+                            "text/plain"
+                    }
+                );
 
-        const link = document.createElement("a");
 
-        link.href = url;
-        link.download = "duckey-script.qs";
+            const url =
+                URL.createObjectURL(
+                    blob
+                );
 
-        document.body.appendChild(link);
 
-        link.click();
+            const link =
+                document.createElement(
+                    "a"
+                );
 
-        document.body.removeChild(link);
 
-        URL.revokeObjectURL(url);
+            link.href =
+                url;
 
-        addQSOutput(
-            "✓ Saved duckey-script.qs"
-        );
-    });
+
+            link.download =
+                "duckey-script.qs";
+
+
+            document.body.appendChild(
+                link
+            );
+
+
+            link.click();
+
+
+            document.body.removeChild(
+                link
+            );
+
+
+            URL.revokeObjectURL(
+                url
+            );
+
+
+            addQSOutput(
+                "✓ Saved duckey-script.qs"
+            );
+        }
+    );
 }
 
 
@@ -335,39 +711,62 @@ if (qsSaveButton) {
 
 if (qsLoadButton) {
 
-    qsLoadButton.addEventListener("click", () => {
+    qsLoadButton.addEventListener(
+        "click",
+        () => {
 
-        qsFileInput.click();
-    });
+            qsFileInput.click();
+        }
+    );
 }
 
 
 if (qsFileInput) {
 
-    qsFileInput.addEventListener("change", (event) => {
+    qsFileInput.addEventListener(
+        "change",
+        (event) => {
 
-        const file = event.target.files[0];
+            const file =
+                event.target.files[0];
 
-        if (!file) return;
 
-        const reader = new FileReader();
+            if (!file) {
+                return;
+            }
 
-        reader.onload = () => {
 
-            qsEditor.value = reader.result;
+            const reader =
+                new FileReader();
 
-            clearQSOutput();
 
-            addQSOutput(
-                `✓ Loaded ${file.name}`
+            reader.onload =
+                () => {
+
+                    qsEditor.value =
+                        reader.result;
+
+
+                    clearQSOutput();
+
+
+                    addQSOutput(
+                        `✓ Loaded ${file.name}`
+                    );
+                };
+
+
+            reader.readAsText(
+                file
             );
-        };
 
-        reader.readAsText(file);
 
-        // Allow loading the same file again
-        event.target.value = "";
-    });
+            // Allow the same file
+            // to be loaded again
+            event.target.value =
+                "";
+        }
+    );
 }
 
 
@@ -377,14 +776,20 @@ if (qsFileInput) {
 
 if (qsClearButton) {
 
-    qsClearButton.addEventListener("click", () => {
+    qsClearButton.addEventListener(
+        "click",
+        () => {
 
-        qsEditor.value = "";
+            qsEditor.value =
+                "";
 
-        clearQSOutput();
 
-        addQSOutput(
-            "Editor cleared."
-        );
-    });
+            clearQSOutput();
+
+
+            addQSOutput(
+                "Editor cleared."
+            );
+        }
+    );
 }
