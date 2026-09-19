@@ -12,14 +12,83 @@
 
 <body>
 
-    <main id="console">
+<main id="console">
 
-        <header id="header">
-            🦆 Duckey Console v1.0
-        </header>
+    <header id="header">
+        🦆 Duckey Console v1.0
+    </header>
+
+    <!-- ========================= -->
+    <!-- MODE TABS                 -->
+    <!-- ========================= -->
+
+    <nav id="modeTabs">
+        <button id="basicTab" class="mode-tab active">
+            BASIC
+        </button>
+
+        <button id="advancedTabButton" class="mode-tab">
+            ADVANCED
+        </button>
+    </nav>
+
+    <!-- ========================= -->
+    <!-- BASIC MODE                -->
+    <!-- ========================= -->
+
+    <div id="basicMode">
 
         <section id="field" aria-label="Duck Field">
             <!-- Ducks, weather effects, puddles and snowmen are created by JavaScript. -->
+        </section>
+
+        <section id="bossBattlefield" aria-label="Boss Battlefield">
+
+            <div id="bossTitle">
+                ⚔️ MEGA DUCKEY
+            </div>
+
+            <div id="bossHealthContainer">
+                <div id="bossHealthBar"></div>
+            </div>
+
+            <div id="bossHealthText">
+                100 / 100
+            </div>
+
+            <div id="megaDuckey">
+
+                <div class="mega-body"></div>
+
+                <div class="mega-head">
+                    <div class="mega-eye"></div>
+                    <div class="mega-beak"></div>
+                </div>
+
+            </div>
+
+            <div id="bossCursor"></div>
+
+            <div id="featherCooldown">
+                🪶 READY
+            </div>
+
+            <div id="playerHealthContainer">
+                <div id="playerHealthBar"></div>
+            </div>
+
+            <div id="playerHealthText">
+                ❤️ 100 / 100
+            </div>
+
+            <div id="bossVictory">
+                🏆 BOSS DEFEATED! 🦆
+            </div>
+
+            <div id="bossDefeat">
+                💀 YOU WERE DEFEATED!
+            </div>
+
         </section>
 
         <section id="output" aria-live="polite">
@@ -35,9 +104,99 @@
             aria-label="Duckey Console command"
         >
 
-    </main>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- ========================= -->
+    <!-- ADVANCED MODE             -->
+    <!-- ========================= -->
+
+    <section id="advancedTab" aria-label="QuackScript Advanced Mode">
+
+        <div id="quackScriptHeader">
+            <div id="quackScriptTitle">
+                🦆 QuackScript
+            </div>
+
+            <div id="quackScriptVersion">
+                .QS v0.1
+            </div>
+        </div>
+
+        <div id="quackScriptEditorWrapper">
+
+            <div id="quackScriptLineNumbers">
+                1
+            </div>
+
+            <textarea
+                id="quackScriptEditor"
+                spellcheck="false"
+                autocomplete="off"
+                wrap="off"
+                aria-label="QuackScript editor"
+>#DuckeyIsBest
+
+//
+
+Create Variable Duckey
+Create Sprite
+Sprite Parts = Beak, Body, Head, Eyes, Feet
+Sprite Colour = Beak, O. Head, Y. Eyes, Bl. Feet, O. Body, Y.
+Sprite = Duckey</textarea>
+
+        </div>
+
+        <div id="quackScriptControls">
+
+            <button id="qsRunButton" class="qs-button qs-run">
+                ▶ RUN .QS
+            </button>
+
+            <button id="qsStopButton" class="qs-button qs-stop">
+                ■ STOP
+            </button>
+
+            <button id="qsNewButton" class="qs-button">
+                NEW
+            </button>
+
+            <button id="qsSaveButton" class="qs-button">
+                SAVE .QS
+            </button>
+
+            <button id="qsLoadButton" class="qs-button">
+                LOAD .QS
+            </button>
+
+            <button id="qsClearButton" class="qs-button">
+                CLEAR
+            </button>
+
+            <input
+                id="qsFileInput"
+                type="file"
+                accept=".qs,text/plain"
+                hidden
+            >
+
+        </div>
+
+        <div id="quackScriptOutput" aria-live="polite">
+            <p class="qs-info">
+                QuackScript v0.1 ready.
+            </p>
+
+            <p class="qs-info">
+                Type .QS code and press RUN .QS.
+            </p>
+        </div>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
+<script src="quackscript.js"></script>
 
 </body>
 </html>
