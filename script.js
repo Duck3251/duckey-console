@@ -1,5 +1,6 @@
 console.log("DUCKEY SCRIPT LOADED - NEW VERSION");
-alert(" DUCKEY CONSOLE -- V1.0 ");
+
+alert("🦆 DUCKEY CONSOLE -- V1.0");
 
 const input = document.getElementById("commandInput");
 const output = document.getElementById("output");
@@ -10,7 +11,7 @@ let currentArea = null;
 let fieldEntered = false;
 
 /* ================================================= */
-/* WEATHER STATE                                    */
+/* WEATHER                                          */
 /* ================================================= */
 
 let currentWeather = null;
@@ -22,15 +23,15 @@ const weatherEffects = {
     snowmen: true
 };
 
-
 /* ================================================= */
-/* BOSS BATTLE STATE                                */
+/* BOSS STATE                                        */
 /* ================================================= */
 
 let bossBattleActive = false;
 let currentBoss = null;
 
 let playerHP = 100;
+
 const MAX_PLAYER_HP = 100;
 
 let attackLevel = 10;
@@ -38,38 +39,71 @@ let attackLevel = 10;
 let unlockedBoss = 1;
 
 const bossData = {
-
     1: {
         name: "Mega Duckey",
         baseHP: 100,
         emoji: "🦆"
     }
-
 };
 
 const bossDefeatCounts = {
     1: 0
 };
 
+/* ================================================= */
+/* BOSS PROJECTILES                                  */
+/* ================================================= */
+
+const bossProjectiles = [];
+
+let bossProjectileTimer = null;
+
+let bossAttackTimer = null;
 
 /* ================================================= */
-/* FEATHER ATTACK                                   */
+/* PLAYER ATTACK                                     */
 /* ================================================= */
 
 let featherCooldown = false;
 
 const FEATHER_COOLDOWN_TIME = 7000;
 
+/* ================================================= */
+/* BOSS DOM                                          */
+/* ================================================= */
+
+const bossBattlefield =
+    document.getElementById("bossBattlefield");
+
+const bossCursor =
+    document.getElementById("bossCursor");
+
+const megaDuckey =
+    document.getElementById("megaDuckey");
+
+const bossHealthBar =
+    document.getElementById("bossHealthBar");
+
+const bossHealthText =
+    document.getElementById("bossHealthText");
+
+const playerHealthBar =
+    document.getElementById("playerHealthBar");
+
+const playerHealthText =
+    document.getElementById("playerHealthText");
+
+const featherCooldownElement =
+    document.getElementById("featherCooldown");
+
+const bossVictory =
+    document.getElementById("bossVictory");
+
+const bossDefeat =
+    document.getElementById("bossDefeat");
 
 /* ================================================= */
-/* BOSS ATTACK TIMER                                */
-/* ================================================= */
-
-let bossAttackTimer = null;
-
-
-/* ================================================= */
-/* COMMANDS                                         */
+/* COMMANDS                                          */
 /* ================================================= */
 
 const commands = {
@@ -111,9 +145,8 @@ const commands = {
     "/clear": "Clear the console."
 };
 
-
 /* ================================================= */
-/* OUTPUT                                           */
+/* OUTPUT                                            */
 /* ================================================= */
 
 function print(text = "", className = "") {
@@ -128,12 +161,12 @@ function print(text = "", className = "") {
 
     output.appendChild(line);
 
-    output.scrollTop = output.scrollHeight;
+    output.scrollTop =
+        output.scrollHeight;
 }
 
-
 /* ================================================= */
-/* RANDOM DUCK TYPE                                 */
+/* RANDOM DUCK TYPE                                  */
 /* ================================================= */
 
 function randomDuckType() {
@@ -151,9 +184,8 @@ function randomDuckType() {
     return "mallard";
 }
 
-
 /* ================================================= */
-/* CREATE DUCK                                      */
+/* CREATE DUCK                                       */
 /* ================================================= */
 
 function createDuck(name) {
@@ -173,13 +205,11 @@ function createDuck(name) {
         dx: (Math.random() - 0.5) * 0.12,
 
         dy: (Math.random() - 0.5) * 0.12
-
     };
 }
 
-
 /* ================================================= */
-/* SPAWN                                            */
+/* SPAWN DUCK                                        */
 /* ================================================= */
 
 function spawnDuck(name) {
@@ -194,7 +224,8 @@ function spawnDuck(name) {
         return;
     }
 
-    const key = name.toLowerCase();
+    const key =
+        name.toLowerCase();
 
     if (ducks.has(key)) {
 
@@ -219,9 +250,8 @@ function spawnDuck(name) {
     updateField();
 }
 
-
 /* ================================================= */
-/* REMOVE                                           */
+/* REMOVE DUCK                                       */
 /* ================================================= */
 
 function removeDuck(name) {
@@ -236,9 +266,12 @@ function removeDuck(name) {
         return;
     }
 
-    if (name.toLowerCase() === "@all") {
+    if (
+        name.toLowerCase() === "@all"
+    ) {
 
-        const count = ducks.size;
+        const count =
+            ducks.size;
 
         ducks.clear();
 
@@ -252,7 +285,8 @@ function removeDuck(name) {
         return;
     }
 
-    const key = name.toLowerCase();
+    const key =
+        name.toLowerCase();
 
     if (!ducks.has(key)) {
 
@@ -274,9 +308,8 @@ function removeDuck(name) {
     updateField();
 }
 
-
 /* ================================================= */
-/* SAY                                              */
+/* SAY                                               */
 /* ================================================= */
 
 function duckSay(name, message) {
@@ -291,7 +324,9 @@ function duckSay(name, message) {
         return;
     }
 
-    if (name.toLowerCase() === "@all") {
+    if (
+        name.toLowerCase() === "@all"
+    ) {
 
         if (ducks.size === 0) {
 
@@ -315,7 +350,8 @@ function duckSay(name, message) {
         return;
     }
 
-    const key = name.toLowerCase();
+    const key =
+        name.toLowerCase();
 
     if (!ducks.has(key)) {
 
@@ -333,14 +369,14 @@ function duckSay(name, message) {
     );
 }
 
-
 /* ================================================= */
-/* CHAOS                                            */
+/* CHAOS                                             */
 /* ================================================= */
 
 function chaos(amount) {
 
-    amount = Number(amount);
+    amount =
+        Number(amount);
 
     if (
         !Number.isInteger(amount) ||
@@ -356,14 +392,22 @@ function chaos(amount) {
         return;
     }
 
-    for (let i = 1; i <= amount; i++) {
+    for (
+        let i = 1;
+        i <= amount;
+        i++
+    ) {
 
-        let name = `Random Duck ${i}`;
+        let name =
+            `Random Duck ${i}`;
 
-        while (ducks.has(name.toLowerCase())) {
+        while (
+            ducks.has(
+                name.toLowerCase()
+            )
+        ) {
 
             name += "!";
-
         }
 
         ducks.set(
@@ -380,9 +424,8 @@ function chaos(amount) {
     updateField();
 }
 
-
 /* ================================================= */
-/* AREA DATA                                        */
+/* AREAS                                             */
 /* ================================================= */
 
 const areas = {
@@ -422,17 +465,16 @@ const areas = {
         emoji: "🛒",
         className: "area-market"
     }
-
 };
 
-
 /* ================================================= */
-/* ENTER AREA                                       */
+/* ENTER AREA                                        */
 /* ================================================= */
 
 function enterArea(areaID) {
 
-    const area = areas[areaID];
+    const area =
+        areas[areaID];
 
     if (!area) {
 
@@ -444,32 +486,30 @@ function enterArea(areaID) {
         return;
     }
 
+    fieldEntered = true;
+
+    currentArea =
+        areaID;
+
     const field =
         document.getElementById("field");
 
-    if (!field) {
+    field.style.display =
+        "block";
 
-        print(
-            "The field element was not found.",
-            "error"
-        );
+    bossBattlefield.classList.remove(
+        "boss-active"
+    );
 
-        return;
-    }
+    Object.values(areas).forEach(
+        (a) => {
 
-    fieldEntered = true;
+            field.classList.remove(
+                a.className
+            );
 
-    currentArea = areaID;
-
-    field.style.display = "block";
-
-    Object.values(areas).forEach((a) => {
-
-        field.classList.remove(
-            a.className
-        );
-
-    });
+        }
+    );
 
     field.classList.add(
         area.className
@@ -485,9 +525,8 @@ function enterArea(areaID) {
     restoreWeatherVisuals();
 }
 
-
 /* ================================================= */
-/* EXIT AREA                                        */
+/* EXIT AREA                                         */
 /* ================================================= */
 
 function exitArea() {
@@ -495,23 +534,22 @@ function exitArea() {
     const field =
         document.getElementById("field");
 
-    if (!field) {
-        return;
-    }
-
     fieldEntered = false;
 
     currentArea = null;
 
-    field.style.display = "none";
+    field.style.display =
+        "none";
 
-    Object.values(areas).forEach((area) => {
+    Object.values(areas).forEach(
+        (area) => {
 
-        field.classList.remove(
-            area.className
-        );
+            field.classList.remove(
+                area.className
+            );
 
-    });
+        }
+    );
 
     print(
         "You left the area. 🚪",
@@ -519,9 +557,8 @@ function exitArea() {
     );
 }
 
-
 /* ================================================= */
-/* CREATE DUCK VISUAL                              */
+/* DUCK VISUAL                                       */
 /* ================================================= */
 
 function createDuckVisual(duck) {
@@ -537,10 +574,10 @@ function createDuckVisual(duck) {
         element.classList.add(
             "frozen"
         );
-
     }
 
-    element.title = duck.name;
+    element.title =
+        duck.name;
 
     const body =
         document.createElement("div");
@@ -567,19 +604,16 @@ function createDuckVisual(duck) {
         "duck-beak";
 
     head.appendChild(eye);
-
     head.appendChild(beak);
 
     element.appendChild(body);
-
     element.appendChild(head);
 
     return element;
 }
 
-
 /* ================================================= */
-/* UPDATE FIELD                                     */
+/* UPDATE FIELD                                      */
 /* ================================================= */
 
 function updateField() {
@@ -609,13 +643,11 @@ function updateField() {
             duck.y + "%";
 
         field.appendChild(element);
-
     });
 }
 
-
 /* ================================================= */
-/* DUCK MOVEMENT                                    */
+/* DUCK MOVEMENT                                     */
 /* ================================================= */
 
 function moveDucks() {
@@ -631,7 +663,6 @@ function moveDucks() {
         }
 
         duck.x += duck.dx;
-
         duck.y += duck.dy;
 
         if (duck.x <= 2) {
@@ -640,7 +671,6 @@ function moveDucks() {
 
             duck.dx =
                 Math.abs(duck.dx);
-
         }
 
         if (duck.x >= 94) {
@@ -649,7 +679,6 @@ function moveDucks() {
 
             duck.dx =
                 -Math.abs(duck.dx);
-
         }
 
         if (duck.y <= 25) {
@@ -658,7 +687,6 @@ function moveDucks() {
 
             duck.dy =
                 Math.abs(duck.dy);
-
         }
 
         if (duck.y >= 90) {
@@ -667,7 +695,6 @@ function moveDucks() {
 
             duck.dy =
                 -Math.abs(duck.dy);
-
         }
 
         if (Math.random() < 0.01) {
@@ -677,27 +704,20 @@ function moveDucks() {
 
             duck.dy =
                 (Math.random() - 0.5) * 0.12;
-
         }
-
     });
 
     updateDuckPositions();
 }
 
-
 /* ================================================= */
-/* UPDATE POSITIONS                                 */
+/* UPDATE DUCK POSITIONS                             */
 /* ================================================= */
 
 function updateDuckPositions() {
 
     const field =
         document.getElementById("field");
-
-    if (!field) {
-        return;
-    }
 
     const elements =
         field.querySelectorAll(
@@ -721,13 +741,11 @@ function updateDuckPositions() {
 
         element.style.top =
             duck.y + "%";
-
     });
 }
 
-
 /* ================================================= */
-/* HELP                                             */
+/* HELP                                              */
 /* ================================================= */
 
 function help() {
@@ -743,7 +761,6 @@ function help() {
             print(
                 `${command} - ${description}`
             );
-
         }
     );
 
@@ -762,9 +779,8 @@ function help() {
     }
 }
 
-
 /* ================================================= */
-/* CODE PUZZLE                                      */
+/* CODE                                              */
 /* ================================================= */
 
 function showCode() {
@@ -787,9 +803,8 @@ function showCode() {
     );
 }
 
-
 /* ================================================= */
-/* SECRET UNLOCK                                    */
+/* SECRET                                             */
 /* ================================================= */
 
 function unlockSecretCommands() {
@@ -804,7 +819,8 @@ function unlockSecretCommands() {
         return;
     }
 
-    secretCommandsUnlocked = true;
+    secretCommandsUnlocked =
+        true;
 
     print(
         "SECRET COMMANDS UNLOCKED! 🔓",
@@ -819,11 +835,6 @@ function unlockSecretCommands() {
         "Type /secrethelp to see them."
     );
 }
-
-
-/* ================================================= */
-/* SECRET HELP                                      */
-/* ================================================= */
 
 function secretHelp() {
 
@@ -842,43 +853,15 @@ function secretHelp() {
         "duck"
     );
 
-    print(
-        "/duckcount - Count spawned ducks"
-    );
-
-    print(
-        "/listducks - List spawned ducks"
-    );
-
-    print(
-        "/teleport <name> - Teleport a duck"
-    );
-
-    print(
-        "/quack @all - Make every duck quack"
-    );
-
-    print(
-        "/freeze <duck> - Freeze a duck"
-    );
-
-    print(
-        "/freeze @all - Freeze all ducks"
-    );
-
-    print(
-        "/unfreeze <duck> - Unfreeze a duck"
-    );
-
-    print(
-        "/unfreeze @all - Unfreeze all ducks"
-    );
+    print("/duckcount - Count spawned ducks");
+    print("/listducks - List spawned ducks");
+    print("/teleport <name> - Teleport a duck");
+    print("/quack @all - Make every duck quack");
+    print("/freeze <duck> - Freeze a duck");
+    print("/freeze @all - Freeze all ducks");
+    print("/unfreeze <duck> - Unfreeze a duck");
+    print("/unfreeze @all - Unfreeze all ducks");
 }
-
-
-/* ================================================= */
-/* DUCK COUNT                                       */
-/* ================================================= */
 
 function duckCount() {
 
@@ -886,11 +869,6 @@ function duckCount() {
         `There are ${ducks.size} spawned ducks. 🦆`
     );
 }
-
-
-/* ================================================= */
-/* LIST DUCKS                                       */
-/* ================================================= */
 
 function listDucks() {
 
@@ -918,14 +896,8 @@ function listDucks() {
         print(
             `- ${duck.name}${status}`
         );
-
     });
 }
-
-
-/* ================================================= */
-/* TELEPORT                                         */
-/* ================================================= */
 
 function teleportDuck(name) {
 
@@ -978,11 +950,6 @@ function teleportDuck(name) {
     );
 }
 
-
-/* ================================================= */
-/* QUACK ALL                                        */
-/* ================================================= */
-
 function quackAll() {
 
     if (ducks.size === 0) {
@@ -1001,14 +968,8 @@ function quackAll() {
             `${duck.name}: QUACK! 🦆`,
             "duck"
         );
-
     });
 }
-
-
-/* ================================================= */
-/* FREEZE                                           */
-/* ================================================= */
 
 function freezeDuck(target) {
 
@@ -1026,21 +987,9 @@ function freezeDuck(target) {
         target.toLowerCase() === "@all"
     ) {
 
-        if (ducks.size === 0) {
-
-            print(
-                "There are no ducks to freeze.",
-                "error"
-            );
-
-            return;
-        }
-
-        ducks.forEach((duck) => {
-
-            duck.frozen = true;
-
-        });
+        ducks.forEach(
+            duck => duck.frozen = true
+        );
 
         updateField();
 
@@ -1077,11 +1026,6 @@ function freezeDuck(target) {
     );
 }
 
-
-/* ================================================= */
-/* UNFREEZE                                         */
-/* ================================================= */
-
 function unfreezeDuck(target) {
 
     if (!target) {
@@ -1098,21 +1042,9 @@ function unfreezeDuck(target) {
         target.toLowerCase() === "@all"
     ) {
 
-        if (ducks.size === 0) {
-
-            print(
-                "There are no ducks to unfreeze.",
-                "error"
-            );
-
-            return;
-        }
-
-        ducks.forEach((duck) => {
-
-            duck.frozen = false;
-
-        });
+        ducks.forEach(
+            duck => duck.frozen = false
+        );
 
         updateField();
 
@@ -1149,24 +1081,18 @@ function unfreezeDuck(target) {
     );
 }
 
-
 /* ================================================= */
-/* WEATHER                                          */
+/* WEATHER                                           */
 /* ================================================= */
 
 function getField() {
-
     return document.getElementById("field");
 }
 
-
-/* ================================================= */
-/* REMOVE WEATHER EFFECTS                           */
-/* ================================================= */
-
 function removeWeatherEffects(type) {
 
-    const field = getField();
+    const field =
+        getField();
 
     if (!field) {
         return;
@@ -1182,7 +1108,6 @@ function removeWeatherEffects(type) {
             .forEach(
                 element => element.remove()
             );
-
     }
 
     if (
@@ -1195,7 +1120,6 @@ function removeWeatherEffects(type) {
             .forEach(
                 element => element.remove()
             );
-
     }
 
     if (
@@ -1208,7 +1132,6 @@ function removeWeatherEffects(type) {
             .forEach(
                 element => element.remove()
             );
-
     }
 
     if (
@@ -1221,34 +1144,21 @@ function removeWeatherEffects(type) {
             .forEach(
                 element => element.remove()
             );
-
     }
 }
 
-
-/* ================================================= */
-/* RAIN DROP                                        */
-/* ================================================= */
-
 function spawnRainDrop() {
 
-    if (!fieldEntered) {
+    if (
+        !fieldEntered ||
+        currentWeather !== "rain" ||
+        !weatherEffects.rain
+    ) {
         return;
     }
 
-    if (currentWeather !== "rain") {
-        return;
-    }
-
-    if (!weatherEffects.rain) {
-        return;
-    }
-
-    const field = getField();
-
-    if (!field) {
-        return;
-    }
+    const field =
+        getField();
 
     const drop =
         document.createElement("div");
@@ -1264,35 +1174,19 @@ function spawnRainDrop() {
 
     field.appendChild(drop);
 
-    setTimeout(() => {
-
-        drop.remove();
-
-    }, 1100);
+    setTimeout(
+        () => drop.remove(),
+        1100
+    );
 }
-
-
-/* ================================================= */
-/* PUDDLE                                           */
-/* ================================================= */
 
 function spawnPuddle() {
 
-    if (!fieldEntered) {
-        return;
-    }
-
-    if (currentWeather !== "rain") {
-        return;
-    }
-
-    if (!weatherEffects.puddles) {
-        return;
-    }
-
-    const field = getField();
-
-    if (!field) {
+    if (
+        !fieldEntered ||
+        currentWeather !== "rain" ||
+        !weatherEffects.puddles
+    ) {
         return;
     }
 
@@ -1308,31 +1202,16 @@ function spawnPuddle() {
     puddle.style.top =
         65 + Math.random() * 25 + "%";
 
-    field.appendChild(puddle);
+    getField().appendChild(puddle);
 }
-
-
-/* ================================================= */
-/* SNOWFLAKE                                        */
-/* ================================================= */
 
 function spawnSnowflake() {
 
-    if (!fieldEntered) {
-        return;
-    }
-
-    if (currentWeather !== "snow") {
-        return;
-    }
-
-    if (!weatherEffects.snow) {
-        return;
-    }
-
-    const field = getField();
-
-    if (!field) {
+    if (
+        !fieldEntered ||
+        currentWeather !== "snow" ||
+        !weatherEffects.snow
+    ) {
         return;
     }
 
@@ -1342,7 +1221,8 @@ function spawnSnowflake() {
     snowflake.className =
         "weather-effect snowflake";
 
-    snowflake.textContent = "❄";
+    snowflake.textContent =
+        "❄";
 
     snowflake.style.left =
         Math.random() * 100 + "%";
@@ -1353,37 +1233,23 @@ function spawnSnowflake() {
     snowflake.style.animationDuration =
         2 + Math.random() * 3 + "s";
 
-    field.appendChild(snowflake);
+    getField().appendChild(
+        snowflake
+    );
 
-    setTimeout(() => {
-
-        snowflake.remove();
-
-    }, 5500);
+    setTimeout(
+        () => snowflake.remove(),
+        5500
+    );
 }
-
-
-/* ================================================= */
-/* SNOWMAN                                           */
-/* ================================================= */
 
 function spawnSnowman() {
 
-    if (!fieldEntered) {
-        return;
-    }
-
-    if (currentWeather !== "snow") {
-        return;
-    }
-
-    if (!weatherEffects.snowmen) {
-        return;
-    }
-
-    const field = getField();
-
-    if (!field) {
+    if (
+        !fieldEntered ||
+        currentWeather !== "snow" ||
+        !weatherEffects.snowmen
+    ) {
         return;
     }
 
@@ -1393,7 +1259,8 @@ function spawnSnowman() {
     snowman.className =
         "weather-snowman";
 
-    snowman.textContent = "⛄";
+    snowman.textContent =
+        "⛄";
 
     snowman.style.left =
         5 + Math.random() * 90 + "%";
@@ -1401,13 +1268,10 @@ function spawnSnowman() {
     snowman.style.top =
         60 + Math.random() * 28 + "%";
 
-    field.appendChild(snowman);
+    getField().appendChild(
+        snowman
+    );
 }
-
-
-/* ================================================= */
-/* START RAIN                                       */
-/* ================================================= */
 
 function startRain() {
 
@@ -1421,38 +1285,27 @@ function startRain() {
         return;
     }
 
-    currentWeather = "rain";
+    currentWeather =
+        "rain";
 
-    const field = getField();
+    const field =
+        getField();
 
-    if (field) {
+    field.classList.remove(
+        "weather-snow"
+    );
 
-        field.classList.remove(
-            "weather-snow"
-        );
-
-        field.classList.add(
-            "weather-rain"
-        );
-
-    }
+    field.classList.add(
+        "weather-rain"
+    );
 
     print(
         "🌧️ Rain has started!",
         "success"
     );
 
-    print(
-        "The rain may create puddles. 💧"
-    );
-
     restoreWeatherVisuals();
 }
-
-
-/* ================================================= */
-/* START SNOW                                       */
-/* ================================================= */
 
 function startSnow() {
 
@@ -1466,71 +1319,49 @@ function startSnow() {
         return;
     }
 
-    currentWeather = "snow";
+    currentWeather =
+        "snow";
 
-    const field = getField();
+    const field =
+        getField();
 
-    if (field) {
+    field.classList.remove(
+        "weather-rain"
+    );
 
-        field.classList.remove(
-            "weather-rain"
-        );
-
-        field.classList.add(
-            "weather-snow"
-        );
-
-    }
+    field.classList.add(
+        "weather-snow"
+    );
 
     print(
         "❄️ Snow has started!",
         "success"
     );
 
-    print(
-        "The snow may create snowmen. ⛄"
-    );
-
     restoreWeatherVisuals();
 }
 
-
-/* ================================================= */
-/* CLEAR WEATHER                                    */
-/* ================================================= */
-
 function clearWeather() {
 
-    const field = getField();
+    const field =
+        getField();
 
-    currentWeather = null;
+    currentWeather =
+        null;
 
-    if (field) {
+    field.classList.remove(
+        "weather-rain"
+    );
 
-        field.classList.remove(
-            "weather-rain"
-        );
-
-        field.classList.remove(
-            "weather-snow"
-        );
-
-    }
+    field.classList.remove(
+        "weather-snow"
+    );
 
     print(
         "☀️ The current weather has been cleared.",
         "success"
     );
-
-    print(
-        "Existing weather effects remain."
-    );
 }
-
-
-/* ================================================= */
-/* CLEAR WEATHER EFFECTS                            */
-/* ================================================= */
 
 function clearWeatherEffects(target) {
 
@@ -1555,7 +1386,9 @@ function clearWeatherEffects(target) {
         "@all"
     ];
 
-    if (!validTargets.includes(target)) {
+    if (
+        !validTargets.includes(target)
+    ) {
 
         print(
             "Choose rain, snow, puddles, snowmen, or @all.",
@@ -1567,26 +1400,11 @@ function clearWeatherEffects(target) {
 
     removeWeatherEffects(target);
 
-    if (target === "@all") {
-
-        print(
-            "🧹 All weather effects have been cleared.",
-            "success"
-        );
-
-        return;
-    }
-
     print(
-        `🧹 ${target} effects have been cleared.`,
+        `🧹 ${target === "@all" ? "All" : target} weather effects have been cleared.`,
         "success"
     );
 }
-
-
-/* ================================================= */
-/* RESTORE WEATHER                                  */
-/* ================================================= */
 
 function restoreWeatherVisuals() {
 
@@ -1596,30 +1414,19 @@ function restoreWeatherVisuals() {
 
     if (currentWeather === "rain") {
 
-        if (weatherEffects.puddles) {
-
-            spawnPuddle();
-            spawnPuddle();
-
-        }
-
+        spawnPuddle();
+        spawnPuddle();
     }
 
     if (currentWeather === "snow") {
 
-        if (weatherEffects.snowmen) {
-
-            spawnSnowman();
-            spawnSnowman();
-
-        }
-
+        spawnSnowman();
+        spawnSnowman();
     }
 }
 
-
 /* ================================================= */
-/* WEATHER LOOP                                     */
+/* WEATHER LOOP                                      */
 /* ================================================= */
 
 setInterval(() => {
@@ -1630,52 +1437,39 @@ setInterval(() => {
 
     if (currentWeather === "rain") {
 
-        if (weatherEffects.rain) {
-
-            for (let i = 0; i < 3; i++) {
-
-                spawnRainDrop();
-
-            }
-
+        for (
+            let i = 0;
+            i < 3;
+            i++
+        ) {
+            spawnRainDrop();
         }
 
         if (
-            weatherEffects.puddles &&
             Math.random() < 0.025
         ) {
-
             spawnPuddle();
-
         }
-
     }
 
     if (currentWeather === "snow") {
 
-        if (weatherEffects.snow) {
-
-            for (let i = 0; i < 2; i++) {
-
-                spawnSnowflake();
-
-            }
-
+        for (
+            let i = 0;
+            i < 2;
+            i++
+        ) {
+            spawnSnowflake();
         }
 
         if (
-            weatherEffects.snowmen &&
             Math.random() < 0.01
         ) {
-
             spawnSnowman();
-
         }
-
     }
 
 }, 120);
-
 
 /* ================================================= */
 /* DUCKCODE                                         */
@@ -1703,21 +1497,13 @@ function encodeDuckCode(message) {
                 code >= 65 &&
                 code <= 90
             ) {
-
                 return code - 64;
-
             }
 
             return character;
-
         })
         .join("-");
 }
-
-
-/* ================================================= */
-/* QUACKCODE                                        */
-/* ================================================= */
 
 function quackCode(message) {
 
@@ -1731,20 +1517,16 @@ function quackCode(message) {
         return;
     }
 
-    const encoded =
-        encodeDuckCode(message);
-
     print(
         "🦆 DUCKCODE:",
         "duck"
     );
 
     print(
-        encoded,
+        encodeDuckCode(message),
         "success"
     );
 }
-
 
 /* ================================================= */
 /* SAVE                                              */
@@ -1779,24 +1561,17 @@ function saveGame(slot) {
                 ducks.entries()
             ),
 
-        secretCommandsUnlocked:
-            secretCommandsUnlocked,
+        secretCommandsUnlocked,
 
-        currentArea:
-            currentArea,
+        currentArea,
 
-        currentWeather:
-            currentWeather,
+        currentWeather,
 
-        attackLevel:
-            attackLevel,
+        attackLevel,
 
-        unlockedBoss:
-            unlockedBoss,
+        unlockedBoss,
 
-        bossDefeatCounts:
-            bossDefeatCounts
-
+        bossDefeatCounts
     };
 
     localStorage.setItem(
@@ -1810,7 +1585,6 @@ function saveGame(slot) {
     );
 }
 
-
 /* ================================================= */
 /* LOAD                                              */
 /* ================================================= */
@@ -1821,16 +1595,6 @@ function loadGame(slot) {
 
         print(
             "Usage: /load <number>",
-            "error"
-        );
-
-        return;
-    }
-
-    if (!/^\d+$/.test(slot)) {
-
-        print(
-            "Save slot must be a number.",
             "error"
         );
 
@@ -1868,20 +1632,13 @@ function loadGame(slot) {
             saveData.ducks.forEach(
                 ([key, duck]) => {
 
-                    if (
-                        typeof duck.frozen !==
-                        "boolean"
-                    ) {
-
-                        duck.frozen = false;
-
-                    }
+                    duck.frozen =
+                        duck.frozen === true;
 
                     ducks.set(
                         key,
                         duck
                     );
-
                 }
             );
         }
@@ -1921,19 +1678,18 @@ function loadGame(slot) {
                     Number(
                         saveData.bossDefeatCounts[key]
                     ) || 0;
-
             });
-
         }
 
         if (currentArea) {
 
-            enterArea(currentArea);
+            enterArea(
+                currentArea
+            );
 
         } else {
 
             updateField();
-
         }
 
         print(
@@ -1950,9 +1706,8 @@ function loadGame(slot) {
     }
 }
 
-
 /* ================================================= */
-/* BOSS STATUS                                      */
+/* BOSS STATUS                                       */
 /* ================================================= */
 
 function bossStatus() {
@@ -1974,9 +1729,9 @@ function bossStatus() {
         `❤️ Player HP: ${playerHP}/${MAX_PLAYER_HP}`
     );
 
-    print("");
-
-    Object.entries(bossData).forEach(
+    Object.entries(
+        bossData
+    ).forEach(
         ([id, boss]) => {
 
             const defeats =
@@ -1984,7 +1739,10 @@ function bossStatus() {
 
             const hp =
                 boss.baseHP *
-                Math.pow(2, defeats);
+                Math.pow(
+                    2,
+                    defeats
+                );
 
             const unlocked =
                 Number(id) <= unlockedBoss;
@@ -1995,14 +1753,12 @@ function bossStatus() {
                 `Next HP: ${hp} | ` +
                 `Defeated: ${defeats}`
             );
-
         }
     );
 }
 
-
 /* ================================================= */
-/* START BOSS                                      */
+/* START BOSS                                        */
 /* ================================================= */
 
 function startBoss(bossNumber) {
@@ -2058,11 +1814,14 @@ function startBoss(bossNumber) {
 
     const bossHP =
         boss.baseHP *
-        Math.pow(2, previousDefeats);
+        Math.pow(
+            2,
+            previousDefeats
+        );
 
     currentBoss = {
 
-        id: id,
+        id,
 
         name: boss.name,
 
@@ -2071,15 +1830,32 @@ function startBoss(bossNumber) {
         maxHP: bossHP,
 
         hp: bossHP
-
     };
 
     playerHP =
         MAX_PLAYER_HP;
 
-    bossBattleActive = true;
+    bossBattleActive =
+        true;
 
-    featherCooldown = false;
+    featherCooldown =
+        false;
+
+    clearBossProjectiles();
+
+    bossVictory.classList.remove(
+        "show"
+    );
+
+    bossDefeat.classList.remove(
+        "show"
+    );
+
+    bossBattlefield.classList.add(
+        "boss-active"
+    );
+
+    updateBossUI();
 
     print("");
     print("================================");
@@ -2092,25 +1868,19 @@ function startBoss(bossNumber) {
     );
 
     print(
-        `❤️ Mega Duckey HP: ${currentBoss.hp}/${currentBoss.maxHP}`
+        "🖱️ Move your cursor around the battlefield."
     );
 
     print(
-        `❤️ Your HP: ${playerHP}/${MAX_PLAYER_HP}`
+        "🖱️ LEFT-CLICK to fire a feather."
     );
 
     print(
-        `🪶 Feather Damage: ${attackLevel}`
-    );
-
-    print("");
-
-    print(
-        "🖱️ LEFT-CLICK THE CONSOLE TO FIRE A FEATHER!"
+        "⚠️ Red projectiles damage you when they hit your cursor."
     );
 
     print(
-        "⚠️ The Feather Blaster has a 7-second cooldown."
+        "🪶 Feather Blaster cooldown: 7 seconds."
     );
 
     print("================================");
@@ -2118,9 +1888,97 @@ function startBoss(bossNumber) {
     startBossAttackLoop();
 }
 
+/* ================================================= */
+/* BOSS UI                                           */
+/* ================================================= */
+
+function updateBossUI() {
+
+    if (!currentBoss) {
+        return;
+    }
+
+    const bossPercent =
+        Math.max(
+            0,
+            currentBoss.hp /
+            currentBoss.maxHP *
+            100
+        );
+
+    bossHealthBar.style.width =
+        bossPercent + "%";
+
+    bossHealthText.textContent =
+        `${currentBoss.hp} / ${currentBoss.maxHP}`;
+
+    const playerPercent =
+        Math.max(
+            0,
+            playerHP /
+            MAX_PLAYER_HP *
+            100
+        );
+
+    playerHealthBar.style.width =
+        playerPercent + "%";
+
+    playerHealthText.textContent =
+        `❤️ ${playerHP} / ${MAX_PLAYER_HP}`;
+
+    if (featherCooldown) {
+
+        featherCooldownElement.textContent =
+            "🪶 RECHARGING...";
+
+        featherCooldownElement.classList.remove(
+            "ready"
+        );
+
+    } else {
+
+        featherCooldownElement.textContent =
+            "🪶 READY";
+
+        featherCooldownElement.classList.add(
+            "ready"
+        );
+    }
+}
 
 /* ================================================= */
-/* FIRE FEATHER                                     */
+/* CURSOR MOVEMENT                                   */
+/* ================================================= */
+
+bossBattlefield.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (!bossBattleActive) {
+            return;
+        }
+
+        const rect =
+            bossBattlefield.getBoundingClientRect();
+
+        const x =
+            event.clientX -
+            rect.left;
+
+        const y =
+            event.clientY -
+            rect.top;
+
+        bossCursor.style.left =
+            x + "px";
+
+        bossCursor.style.top =
+            y + "px";
+    }
+);
+
+/* ================================================= */
+/* PLAYER FEATHER                                    */
 /* ================================================= */
 
 function fireFeather() {
@@ -2136,14 +1994,53 @@ function fireFeather() {
     if (featherCooldown) {
 
         print(
-            "🪶 Feather Blaster is cooling down! Wait 7 seconds.",
+            "🪶 Feather Blaster is cooling down!",
             "error"
         );
 
         return;
     }
 
-    featherCooldown = true;
+    featherCooldown =
+        true;
+
+    updateBossUI();
+
+    const battlefieldRect =
+        bossBattlefield.getBoundingClientRect();
+
+    const cursorRect =
+        bossCursor.getBoundingClientRect();
+
+    const bossRect =
+        megaDuckey.getBoundingClientRect();
+
+    const startX =
+        cursorRect.left -
+        battlefieldRect.left +
+        cursorRect.width / 2;
+
+    const startY =
+        cursorRect.top -
+        battlefieldRect.top +
+        cursorRect.height / 2;
+
+    const targetX =
+        bossRect.left -
+        battlefieldRect.left +
+        bossRect.width / 2;
+
+    const targetY =
+        bossRect.top -
+        battlefieldRect.top +
+        bossRect.height / 2;
+
+    createFeatherProjectile(
+        startX,
+        startY,
+        targetX,
+        targetY
+    );
 
     const damage =
         attackLevel;
@@ -2154,28 +2051,41 @@ function fireFeather() {
             currentBoss.hp - damage
         );
 
-    print("");
+    megaDuckey.classList.add(
+        "hit"
+    );
+
+    setTimeout(() => {
+
+        megaDuckey.classList.remove(
+            "hit"
+        );
+
+    }, 120);
+
+    updateBossUI();
 
     print(
         `🪶 FEATHER FIRED! -${damage} HP`,
         "success"
     );
 
-    print(
-        `${currentBoss.emoji} ${currentBoss.name}: ` +
-        `${currentBoss.hp}/${currentBoss.maxHP} HP`
-    );
-
     if (currentBoss.hp <= 0) {
 
-        defeatBoss();
+        setTimeout(
+            defeatBoss,
+            150
+        );
 
         return;
     }
 
     setTimeout(() => {
 
-        featherCooldown = false;
+        featherCooldown =
+            false;
+
+        updateBossUI();
 
         if (bossBattleActive) {
 
@@ -2183,15 +2093,81 @@ function fireFeather() {
                 "🪶 Feather Blaster READY!",
                 "success"
             );
-
         }
 
     }, FEATHER_COOLDOWN_TIME);
 }
 
+/* ================================================= */
+/* CREATE FEATHER PROJECTILE                         */
+/* ================================================= */
+
+function createFeatherProjectile(
+    startX,
+    startY,
+    targetX,
+    targetY
+) {
+
+    const projectile =
+        document.createElement("div");
+
+    projectile.className =
+        "feather-projectile";
+
+    projectile.style.left =
+        startX + "px";
+
+    projectile.style.top =
+        startY + "px";
+
+    bossBattlefield.appendChild(
+        projectile
+    );
+
+    const dx =
+        targetX - startX;
+
+    const dy =
+        targetY - startY;
+
+    const distance =
+        Math.hypot(dx, dy);
+
+    const duration =
+        Math.max(
+            150,
+            distance * 2
+        );
+
+    projectile.style.transform =
+        `translate(-50%, -50%) rotate(${Math.atan2(dy, dx)}rad)`;
+
+    projectile.animate(
+        [
+            {
+                left: startX + "px",
+                top: startY + "px"
+            },
+            {
+                left: targetX + "px",
+                top: targetY + "px"
+            }
+        ],
+        {
+            duration,
+            easing: "linear"
+        }
+    );
+
+    setTimeout(
+        () => projectile.remove(),
+        duration + 50
+    );
+}
 
 /* ================================================= */
-/* BOSS ATTACK LOOP                                 */
+/* BOSS ATTACK LOOP                                  */
 /* ================================================= */
 
 function startBossAttackLoop() {
@@ -2208,28 +2184,48 @@ function startBossAttackLoop() {
             bossAttack();
 
         }, 2500);
+
+    bossProjectileTimer =
+        setInterval(() => {
+
+            if (!bossBattleActive) {
+                return;
+            }
+
+            fireBossProjectile();
+
+        }, 1000);
 }
-
-
-/* ================================================= */
-/* STOP BOSS ATTACK LOOP                            */
-/* ================================================= */
 
 function stopBossAttackLoop() {
 
-    if (bossAttackTimer !== null) {
+    if (
+        bossAttackTimer !== null
+    ) {
 
         clearInterval(
             bossAttackTimer
         );
 
-        bossAttackTimer = null;
+        bossAttackTimer =
+            null;
+    }
+
+    if (
+        bossProjectileTimer !== null
+    ) {
+
+        clearInterval(
+            bossProjectileTimer
+        );
+
+        bossProjectileTimer =
+            null;
     }
 }
 
-
 /* ================================================= */
-/* MEGA DUCKEY ATTACK                               */
+/* BOSS TEXT ATTACK                                  */
 /* ================================================= */
 
 function bossAttack() {
@@ -2242,22 +2238,18 @@ function bossAttack() {
 
         {
             name: "MEGA PECK",
-            damage: 12,
             emoji: "💥🦆"
         },
 
         {
             name: "QUACK SHOCKWAVE",
-            damage: 18,
             emoji: "🌊📢"
         },
 
         {
             name: "MEGA QUACK",
-            damage: 10,
             emoji: "📢🦆"
         }
-
     ];
 
     const attack =
@@ -2268,12 +2260,6 @@ function bossAttack() {
             )
         ];
 
-    playerHP =
-        Math.max(
-            0,
-            playerHP - attack.damage
-        );
-
     print("");
 
     print(
@@ -2282,7 +2268,308 @@ function bossAttack() {
     );
 
     print(
-        `You took ${attack.damage} damage!`
+        "⚠️ Watch out for the incoming projectiles!"
+    );
+}
+
+/* ================================================= */
+/* FIRE BOSS PROJECTILE                             */
+/* ================================================= */
+
+function fireBossProjectile() {
+
+    if (!bossBattleActive) {
+        return;
+    }
+
+    const battlefieldWidth =
+        bossBattlefield.clientWidth;
+
+    const battlefieldHeight =
+        bossBattlefield.clientHeight;
+
+    const bossRect =
+        megaDuckey.getBoundingClientRect();
+
+    const battlefieldRect =
+        bossBattlefield.getBoundingClientRect();
+
+    const startX =
+        bossRect.left -
+        battlefieldRect.left +
+        bossRect.width / 2;
+
+    const startY =
+        bossRect.top -
+        battlefieldRect.top +
+        bossRect.height / 2;
+
+    const cursorRect =
+        bossCursor.getBoundingClientRect();
+
+    let targetX =
+        cursorRect.left -
+        battlefieldRect.left +
+        cursorRect.width / 2;
+
+    let targetY =
+        cursorRect.top -
+        battlefieldRect.top +
+        cursorRect.height / 2;
+
+    /* Add a little aiming variation */
+
+    targetX +=
+        (Math.random() - 0.5) * 120;
+
+    targetY +=
+        (Math.random() - 0.5) * 120;
+
+    targetX =
+        Math.max(
+            10,
+            Math.min(
+                battlefieldWidth - 10,
+                targetX
+            )
+        );
+
+    targetY =
+        Math.max(
+            10,
+            Math.min(
+                battlefieldHeight - 10,
+                targetY
+            )
+        );
+
+    createBossProjectile(
+        startX,
+        startY,
+        targetX,
+        targetY
+    );
+}
+
+/* ================================================= */
+/* CREATE BOSS PROJECTILE                            */
+/* ================================================= */
+
+function createBossProjectile(
+    startX,
+    startY,
+    targetX,
+    targetY
+) {
+
+    const projectile =
+        document.createElement("div");
+
+    projectile.className =
+        "boss-projectile";
+
+    projectile.style.left =
+        startX + "px";
+
+    projectile.style.top =
+        startY + "px";
+
+    bossBattlefield.appendChild(
+        projectile
+    );
+
+    const dx =
+        targetX - startX;
+
+    const dy =
+        targetY - startY;
+
+    const distance =
+        Math.hypot(dx, dy);
+
+    const speed =
+        260;
+
+    const vx =
+        dx / distance * speed;
+
+    const vy =
+        dy / distance * speed;
+
+    const projectileData = {
+
+        element: projectile,
+
+        x: startX,
+
+        y: startY,
+
+        vx,
+
+        vy,
+
+        radius: 11,
+
+        dead: false
+    };
+
+    bossProjectiles.push(
+        projectileData
+    );
+}
+
+/* ================================================= */
+/* PROJECTILE COLLISION LOOP                        */
+/* ================================================= */
+
+function updateBossProjectiles(deltaTime) {
+
+    if (!bossBattleActive) {
+        return;
+    }
+
+    const battlefieldWidth =
+        bossBattlefield.clientWidth;
+
+    const battlefieldHeight =
+        bossBattlefield.clientHeight;
+
+    const cursorRect =
+        bossCursor.getBoundingClientRect();
+
+    const battlefieldRect =
+        bossBattlefield.getBoundingClientRect();
+
+    const cursorX =
+        cursorRect.left -
+        battlefieldRect.left +
+        cursorRect.width / 2;
+
+    const cursorY =
+        cursorRect.top -
+        battlefieldRect.top +
+        cursorRect.height / 2;
+
+    const cursorRadius =
+        15;
+
+    for (
+        let i = bossProjectiles.length - 1;
+        i >= 0;
+        i--
+    ) {
+
+        const projectile =
+            bossProjectiles[i];
+
+        if (projectile.dead) {
+
+            bossProjectiles.splice(
+                i,
+                1
+            );
+
+            continue;
+        }
+
+        projectile.x +=
+            projectile.vx *
+            deltaTime;
+
+        projectile.y +=
+            projectile.vy *
+            deltaTime;
+
+        projectile.element.style.left =
+            projectile.x + "px";
+
+        projectile.element.style.top =
+            projectile.y + "px";
+
+        const distance =
+            Math.hypot(
+                projectile.x - cursorX,
+                projectile.y - cursorY
+            );
+
+        /* COLLISION WITH CURSOR */
+
+        if (
+            distance <=
+            projectile.radius +
+            cursorRadius
+        ) {
+
+            projectile.dead =
+                true;
+
+            projectile.element.remove();
+
+            bossProjectiles.splice(
+                i,
+                1
+            );
+
+            damagePlayer(10);
+
+            continue;
+        }
+
+        /* Remove projectile outside battlefield */
+
+        if (
+            projectile.x < -50 ||
+            projectile.x >
+                battlefieldWidth + 50 ||
+            projectile.y < -50 ||
+            projectile.y >
+                battlefieldHeight + 50
+        ) {
+
+            projectile.dead =
+                true;
+
+            projectile.element.remove();
+
+            bossProjectiles.splice(
+                i,
+                1
+            );
+        }
+    }
+}
+
+/* ================================================= */
+/* PLAYER DAMAGE                                     */
+/* ================================================= */
+
+function damagePlayer(damage) {
+
+    if (!bossBattleActive) {
+        return;
+    }
+
+    playerHP =
+        Math.max(
+            0,
+            playerHP - damage
+        );
+
+    updateBossUI();
+
+    bossBattlefield.classList.remove(
+        "player-hit"
+    );
+
+    void bossBattlefield.offsetWidth;
+
+    bossBattlefield.classList.add(
+        "player-hit"
+    );
+
+    print(
+        `💥 A boss projectile hit you! -${damage} HP`,
+        "error"
     );
 
     print(
@@ -2292,10 +2579,25 @@ function bossAttack() {
     if (playerHP <= 0) {
 
         playerDefeated();
-
     }
 }
 
+/* ================================================= */
+/* CLEAR PROJECTILES                                */
+/* ================================================= */
+
+function clearBossProjectiles() {
+
+    bossProjectiles.forEach(
+        projectile => {
+
+            projectile.element.remove();
+        }
+    );
+
+    bossProjectiles.length =
+        0;
+}
 
 /* ================================================= */
 /* PLAYER DEFEATED                                  */
@@ -2303,19 +2605,25 @@ function bossAttack() {
 
 function playerDefeated() {
 
-    bossBattleActive = false;
+    bossBattleActive =
+        false;
 
-    currentBoss = null;
+    currentBoss =
+        null;
 
     stopBossAttackLoop();
 
-    featherCooldown = false;
+    clearBossProjectiles();
+
+    featherCooldown =
+        false;
+
+    bossDefeat.classList.add(
+        "show"
+    );
 
     print("");
-
-    print(
-        "================================"
-    );
+    print("================================");
 
     print(
         "💀 YOU WERE DEFEATED!",
@@ -2334,11 +2642,20 @@ function playerDefeated() {
         "Type /boss 1 to try again."
     );
 
-    print(
-        "================================"
-    );
-}
+    print("================================");
 
+    setTimeout(() => {
+
+        bossBattlefield.classList.remove(
+            "boss-active"
+        );
+
+        bossDefeat.classList.remove(
+            "show"
+        );
+
+    }, 1800);
+}
 
 /* ================================================= */
 /* BOSS DEFEATED                                    */
@@ -2353,14 +2670,22 @@ function defeatBoss() {
     const defeatedID =
         currentBoss.id;
 
-    bossBattleActive = false;
+    const defeatedBossName =
+        currentBoss.name;
+
+    bossBattleActive =
+        false;
 
     stopBossAttackLoop();
 
-    featherCooldown = false;
+    clearBossProjectiles();
 
-    const defeatedBossName =
-        currentBoss.name;
+    featherCooldown =
+        false;
+
+    megaDuckey.classList.add(
+        "defeated"
+    );
 
     bossDefeatCounts[defeatedID] =
         (bossDefeatCounts[defeatedID] || 0) + 1;
@@ -2377,14 +2702,14 @@ function defeatBoss() {
 
         unlockedBoss =
             nextBoss;
-
     }
 
-    print("");
-
-    print(
-        "================================"
+    bossVictory.classList.add(
+        "show"
     );
+
+    print("");
+    print("================================");
 
     print(
         `🏆 ${defeatedBossName} DEFEATED!`,
@@ -2421,16 +2746,29 @@ function defeatBoss() {
         print(
             "There are no more bosses available yet."
         );
-
     }
 
-    print(
-        "================================"
-    );
+    print("================================");
 
-    currentBoss = null;
+    currentBoss =
+        null;
+
+    setTimeout(() => {
+
+        bossVictory.classList.remove(
+            "show"
+        );
+
+        bossBattlefield.classList.remove(
+            "boss-active"
+        );
+
+        megaDuckey.classList.remove(
+            "defeated"
+        );
+
+    }, 2200);
 }
-
 
 /* ================================================= */
 /* COMMAND PROCESSOR                                */
@@ -2468,127 +2806,110 @@ function runCommand(command) {
     const commandName =
         parts[0].toLowerCase();
 
-
-    /* ================================================= */
-    /* NORMAL COMMANDS                                  */
-    /* ================================================= */
-
     if (commandName === "/help") {
 
         help();
 
-    }
-
-    else if (commandName === "/spawn") {
+    } else if (
+        commandName === "/spawn"
+    ) {
 
         spawnDuck(
             parts.slice(1).join(" ")
         );
 
-    }
-
-    else if (commandName === "/remove") {
+    } else if (
+        commandName === "/remove"
+    ) {
 
         removeDuck(
             parts.slice(1).join(" ")
         );
 
-    }
-
-    else if (commandName === "/say") {
+    } else if (
+        commandName === "/say"
+    ) {
 
         duckSay(
             parts[1],
             parts.slice(2).join(" ")
         );
 
-    }
-
-    else if (commandName === "/chaos") {
+    } else if (
+        commandName === "/chaos"
+    ) {
 
         chaos(parts[1]);
 
-    }
-
-
-    /* ================================================= */
-    /* AREAS                                            */
-    /* ================================================= */
-
-    else if (commandName === "/enterfield") {
+    } else if (
+        commandName === "/enterfield"
+    ) {
 
         enterArea("field");
 
-    }
-
-    else if (commandName === "/enterforest") {
+    } else if (
+        commandName === "/enterforest"
+    ) {
 
         enterArea("forest");
 
-    }
-
-    else if (commandName === "/enterlake") {
+    } else if (
+        commandName === "/enterlake"
+    ) {
 
         enterArea("lake");
 
-    }
-
-    else if (commandName === "/enterfarm") {
+    } else if (
+        commandName === "/enterfarm"
+    ) {
 
         enterArea("farm");
 
-    }
-
-    else if (commandName === "/entervillage") {
+    } else if (
+        commandName === "/entervillage"
+    ) {
 
         enterArea("village");
 
-    }
-
-    else if (commandName === "/entermarket") {
+    } else if (
+        commandName === "/entermarket"
+    ) {
 
         enterArea("market");
 
-    }
-
-    else if (commandName === "/exitfield") {
+    } else if (
+        commandName === "/exitfield"
+    ) {
 
         exitArea();
 
-    }
-
-
-    /* ================================================= */
-    /* WEATHER                                          */
-    /* ================================================= */
-
-    else if (commandName === "/rain") {
+    } else if (
+        commandName === "/rain"
+    ) {
 
         startRain();
 
-    }
-
-    else if (commandName === "/snow") {
+    } else if (
+        commandName === "/snow"
+    ) {
 
         startSnow();
 
-    }
-
-    else if (commandName === "/quackcode") {
+    } else if (
+        commandName === "/quackcode"
+    ) {
 
         quackCode(
             parts.slice(1).join(" ")
         );
 
-    }
-
-    else if (commandName === "/clearweather") {
+    } else if (
+        commandName === "/clearweather"
+    ) {
 
         clearWeather();
 
-    }
-
-    else if (
+    } else if (
         commandName === "/clearweathereffects"
     ) {
 
@@ -2596,78 +2917,64 @@ function runCommand(command) {
             parts[1]
         );
 
-    }
-
-
-    /* ================================================= */
-    /* BOSSES                                            */
-    /* ================================================= */
-
-    else if (commandName === "/boss") {
+    } else if (
+        commandName === "/boss"
+    ) {
 
         startBoss(
             parts[1]
         );
 
-    }
-
-    else if (commandName === "/bossstatus") {
+    } else if (
+        commandName === "/bossstatus"
+    ) {
 
         bossStatus();
 
-    }
-
-
-    /* ================================================= */
-    /* OTHER COMMANDS                                   */
-    /* ================================================= */
-
-    else if (commandName === "/code") {
+    } else if (
+        commandName === "/code"
+    ) {
 
         showCode();
 
-    }
-
-    else if (commandName === "/save") {
+    } else if (
+        commandName === "/save"
+    ) {
 
         saveGame(
             parts[1]
         );
 
-    }
-
-    else if (commandName === "/load") {
+    } else if (
+        commandName === "/load"
+    ) {
 
         loadGame(
             parts[1]
         );
 
-    }
+    } else if (
+        commandName === "/clear"
+    ) {
 
-    else if (commandName === "/clear") {
+        output.innerHTML =
+            "";
 
-        output.innerHTML = "";
-
-    }
-
-
-    /* ================================================= */
-    /* SECRET COMMANDS                                  */
-    /* ================================================= */
-
-    else if (commandName === "/78096") {
+    } else if (
+        commandName === "/78096"
+    ) {
 
         unlockSecretCommands();
 
-    }
-
-    else if (commandName === "/secrethelp") {
+    } else if (
+        commandName === "/secrethelp"
+    ) {
 
         secretHelp();
 
-    }
-
-    else if (commandName === "/duckcount") {
+    } else if (
+        commandName === "/duckcount"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2681,9 +2988,9 @@ function runCommand(command) {
 
         duckCount();
 
-    }
-
-    else if (commandName === "/listducks") {
+    } else if (
+        commandName === "/listducks"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2697,9 +3004,9 @@ function runCommand(command) {
 
         listDucks();
 
-    }
-
-    else if (commandName === "/teleport") {
+    } else if (
+        commandName === "/teleport"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2715,9 +3022,9 @@ function runCommand(command) {
             parts.slice(1).join(" ")
         );
 
-    }
-
-    else if (commandName === "/quack") {
+    } else if (
+        commandName === "/quack"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2741,12 +3048,11 @@ function runCommand(command) {
                 "Usage: /quack @all",
                 "error"
             );
-
         }
 
-    }
-
-    else if (commandName === "/freeze") {
+    } else if (
+        commandName === "/freeze"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2762,9 +3068,9 @@ function runCommand(command) {
             parts.slice(1).join(" ")
         );
 
-    }
-
-    else if (commandName === "/unfreeze") {
+    } else if (
+        commandName === "/unfreeze"
+    ) {
 
         if (!secretCommandsUnlocked) {
 
@@ -2780,14 +3086,7 @@ function runCommand(command) {
             parts.slice(1).join(" ")
         );
 
-    }
-
-
-    /* ================================================= */
-    /* UNKNOWN                                          */
-    /* ================================================= */
-
-    else {
+    } else {
 
         print(
             `Unknown command: ${commandName}`,
@@ -2797,112 +3096,103 @@ function runCommand(command) {
         print(
             "Type /help for available commands."
         );
-
     }
 }
 
-
 /* ================================================= */
-/* INPUT                                            */
+/* INPUT                                             */
 /* ================================================= */
 
 if (input) {
 
     input.addEventListener(
         "keydown",
-        function(event) {
+        (event) => {
 
-            if (event.key === "Enter") {
+            if (
+                event.key === "Enter"
+            ) {
 
                 runCommand(
                     input.value
                 );
 
-                input.value = "";
-
+                input.value =
+                    "";
             }
-
         }
     );
-
-} else {
-
-    console.error(
-        "Duckey Console: #commandInput was not found."
-    );
-
 }
 
-
 /* ================================================= */
-/* MOUSE ATTACK                                     */
+/* CLICK TO ATTACK                                   */
 /* ================================================= */
 
-/*
-   ONLY LEFT-CLICK fires the Feather.
+bossBattlefield.addEventListener(
+    "click",
+    (event) => {
 
-   Right-click does nothing.
-
-   Clicking the command input does NOT fire a Feather,
-   because that would be annoying while typing commands.
-*/
-
-const consoleElement =
-    document.getElementById("console");
-
-if (consoleElement) {
-
-    consoleElement.addEventListener(
-        "click",
-        function(event) {
-
-            if (!bossBattleActive) {
-                return;
-            }
-
-            if (
-                event.target === input ||
-                input?.contains(event.target)
-            ) {
-                return;
-            }
-
-            fireFeather();
-
+        if (!bossBattleActive) {
+            return;
         }
-    );
 
-}
-
+        fireFeather();
+    }
+);
 
 /* ================================================= */
-/* RIGHT CLICK                                     */
+/* RIGHT CLICK                                       */
 /* ================================================= */
 
-if (consoleElement) {
+bossBattlefield.addEventListener(
+    "contextmenu",
+    (event) => {
 
-    consoleElement.addEventListener(
-        "contextmenu",
-        function(event) {
+        if (bossBattleActive) {
 
-            if (bossBattleActive) {
+            event.preventDefault();
 
-                event.preventDefault();
-
-                print(
-                    "🖱️ Right-click does not fire. LEFT-CLICK to shoot a Feather!"
-                );
-
-            }
-
+            print(
+                "🖱️ Right-click does not fire. LEFT-CLICK to shoot a Feather!"
+            );
         }
-    );
-
-}
-
+    }
+);
 
 /* ================================================= */
-/* DUCK MOVEMENT LOOP                               */
+/* BOSS PROJECTILE GAME LOOP                         */
+/* ================================================= */
+
+let previousFrameTime =
+    performance.now();
+
+function bossGameLoop(currentTime) {
+
+    const deltaTime =
+        Math.min(
+            (currentTime -
+                previousFrameTime) / 1000,
+            0.05
+        );
+
+    previousFrameTime =
+        currentTime;
+
+    updateBossProjectiles(
+        deltaTime
+    );
+
+    requestAnimationFrame(
+        bossGameLoop
+    );
+}
+
+requestAnimationFrame(
+    bossGameLoop
+);
+
+/* ================================================= */
+/* DUCK MOVEMENT LOOP                                */
 /* ================================================= */
 
 setInterval(
@@ -2910,9 +3200,8 @@ setInterval(
     50
 );
 
-
 /* ================================================= */
-/* STARTUP                                          */
+/* STARTUP                                           */
 /* ================================================= */
 
 print(
