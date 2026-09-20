@@ -611,17 +611,7 @@ if (qsNewButton) {
         () => {
 
             qsEditor.value =
-`#DuckeyIsBest
-
-//
-
-Create Variable Coins
-Coins = 100
-
-Create Sprite
-Sprite Parts = Beak, Body, Head, Eyes, Feet
-Sprite Colour = Beak, O. Head, Y. Eyes, Bl. Feet, O. Body, Y.
-Sprite = Duckey`;
+``;
 
 
             clearQSOutput();
