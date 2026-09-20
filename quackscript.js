@@ -4,14 +4,62 @@
 // ==========================================
 
 function createQuackSprite(name) {
-    const field = document.getElementById("field");
 
-    if (!field) {
-        console.error("QUACKSCRIPT ERROR: #field not found.");
+    const output =
+        document.getElementById(
+            "quackScriptOutput"
+        );
+
+    if (!output) {
+
+        console.error(
+            "QUACKSCRIPT ERROR: Output window not found."
+        );
+
         return null;
     }
 
-    const sprite = document.createElement("div");
+
+    // Remove an existing preview
+    const oldSprite =
+        output.querySelector(
+            ".qs-sprite"
+        );
+
+    if (oldSprite) {
+        oldSprite.remove();
+    }
+
+
+    const sprite =
+        document.createElement("div");
+
+    sprite.className =
+        "qs-sprite";
+
+    sprite.dataset.spriteName =
+        name;
+
+
+    sprite.innerHTML = `
+        <div class="qs-duck-body"></div>
+
+        <div class="qs-duck-head">
+            <div class="qs-duck-eye"></div>
+            <div class="qs-duck-beak"></div>
+        </div>
+    `;
+
+
+    output.appendChild(
+        sprite
+    );
+
+
+    return sprite;
+}
+
+  const sprite = document.createElement("div");
 
     sprite.className = "qs-sprite";
     sprite.dataset.spriteName = name;
@@ -31,7 +79,7 @@ function createQuackSprite(name) {
     field.appendChild(sprite);
 
     return sprite;
-}
+
 
 
 // ==========================================
@@ -618,7 +666,7 @@ if (qsNewButton) {
 
 
             addQSOutput(
-                "New QuackScript created."
+                "New Blank QuackScript created."
             );
         }
     );
